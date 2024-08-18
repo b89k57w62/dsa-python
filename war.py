@@ -5,3 +5,12 @@ def delete_nth(order,max_e):
       if result.count(num) < max_e:
          result.append(num)
    return result
+
+# 6kyu Tribonacci Sequence
+def tribonacci(signature, n):
+   if n <= 3:
+      return signature[:n]
+   result = signature[:]
+   for i in range(3, n):
+      result.append(sum(result[-3:]))
+   return result
