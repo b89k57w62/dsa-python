@@ -14,3 +14,8 @@ def tribonacci(signature, n):
    for i in range(3, n):
       result.append(sum(result[-3:]))
    return result
+
+# 6kyu Bit Counting
+def count_bits(n):
+   bin_num = format(n, 'b')
+   return bin_num.count('1')
