@@ -31,3 +31,12 @@ def likes(names):
    elif len(names) == 3:
       return f"{names[0]}, {names[1]} and {names[2]} like this"
    return f"{names[0]}, {names[1]} and {len(names)-2} others like this"
+
+# 6kyu Find the odd int
+def find_it(seq):
+   from collections import Counter
+   count_num = Counter(seq)
+   for key in count_num:
+      if count_num[key] % 2 == 1:
+         return key
+
