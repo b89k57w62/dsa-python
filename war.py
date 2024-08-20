@@ -49,3 +49,13 @@ def pig_it(text):
       else:
          ans.append(str)
    return " ".join(ans)
+
+# 6kyu Array.diff
+def array_diff(a, b):
+   ans = []
+   for num in a:
+      if num not in b:
+         ans.append(num)
+   return ans
+   # solution2
+   # return [num for num in a if num not in b]
