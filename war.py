@@ -40,7 +40,7 @@ def find_it(seq):
       if count_num[key] % 2 == 1:
          return key
 
-#5kyu Simple Pig Latin
+# 5kyu Simple Pig Latin
 def pig_it(text):
    ans = []
    for str in text.split(' '):
