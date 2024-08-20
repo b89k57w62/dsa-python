@@ -40,3 +40,12 @@ def find_it(seq):
       if count_num[key] % 2 == 1:
          return key
 
+#5kyu Simple Pig Latin
+def pig_it(text):
+   ans = []
+   for str in text.split(' '):
+      if str.isalpha():
+         ans.append(str.replace(str[0], "", 1)+str[0]+"ay")
+      else:
+         ans.append(str)
+   return " ".join(ans)
