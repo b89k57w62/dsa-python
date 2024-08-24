@@ -59,3 +59,7 @@ def array_diff(a, b):
    return ans
    # solution2
    # return [num for num in a if num not in b]
+
+# 7kyu Jaden Casing Strings
+def to_jaden_case(string):
+   return " ".join([words.capitalize() for words in string.split(" ")])
