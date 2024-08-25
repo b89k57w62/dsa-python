@@ -75,3 +75,9 @@ def alphanumeric(password):
    return True if len("".join(ans)) == len(password) else False
    # solution2
    # return password.isalnum() 
+
+# 6kyu Stop gninnipS My sdroW!
+def spin_words(sentence):
+   array = sentence.split(" ")
+   return " ".join([words[::-1] if len(words) >=5 else words for words in array])
+
