@@ -63,3 +63,18 @@ def array_diff(a, b):
 # 7kyu Jaden Casing Strings
 def to_jaden_case(string):
    return " ".join([words.capitalize() for words in string.split(" ")])
+
+# 5kyu Not very secure
+def alphanumeric(password):
+   if len(password) == 0:
+      return False
+   ans = []
+   for char in password:
+      if char.isalpha() or char.isnumeric():
+         ans.append(char)
+   return True if len("".join(ans)) == len(password) else False
+   # solution2
+   # return password.isalnum() 
+
+
+print(alphanumeric(""))
