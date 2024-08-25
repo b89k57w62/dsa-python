@@ -75,6 +75,3 @@ def alphanumeric(password):
    return True if len("".join(ans)) == len(password) else False
    # solution2
    # return password.isalnum() 
-
-
-print(alphanumeric(""))
