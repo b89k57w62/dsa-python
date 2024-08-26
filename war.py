@@ -81,3 +81,11 @@ def spin_words(sentence):
    array = sentence.split(" ")
    return " ".join([words[::-1] if len(words) >=5 else words for words in array])
 
+# 6kyu Which are in?
+def in_array(array1, array2):
+   ans = []
+   for i in range(len(array1)):
+      for words in array2:
+         if array1[i] in words:
+            ans.append(array1[i])
+   return sorted(list(set(ans)))
