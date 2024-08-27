@@ -89,3 +89,7 @@ def in_array(array1, array2):
          if array1[i] in words:
             ans.append(array1[i])
    return sorted(list(set(ans)))
+
+# 6kyu Break camelCase
+def solution(s):
+   return "".join([" " + char if char.isupper() else char for char in s])
