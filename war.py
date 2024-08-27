@@ -93,3 +93,14 @@ def in_array(array1, array2):
 # 6kyu Break camelCase
 def solution(s):
    return "".join([" " + char if char.isupper() else char for char in s])
+
+# 5kyu Pete, the baker
+def cakes(recipe, available):
+   ans = []
+   if recipe.keys() <= available.keys():
+      for key in recipe:
+         ans.append(available[key] // recipe[key])
+      return min(ans)
+   return False
+   # solution2
+   # return min(available.get(k, 0)//recipe[k] for k in recipe)
