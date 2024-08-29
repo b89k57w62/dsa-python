@@ -104,3 +104,10 @@ def cakes(recipe, available):
    return False
    # solution2
    # return min(available.get(k, 0)//recipe[k] for k in recipe)
+
+# 5kyu Human Readable Time
+def make_readable(seconds):
+   hrs = seconds // 3600
+   mins = (seconds % 3600) // 60
+   secs = (seconds % 3600) % 60
+   return f"{hrs:02}:{mins:02}:{secs:02}"
