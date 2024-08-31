@@ -118,3 +118,14 @@ def find_even_index(arr):
       if sum(arr[0:i+1]) == sum(arr[i:]):
          return i
    return -1
+
+# 6kyu The Supermarket Queue
+def queue_time(customers, n):
+   if customers == 0:
+      return 0
+   cashers = [0] * n
+   for customer in customers:
+      min_index = cashers.index(min(cashers))
+      cashers[min_index] += customer
+   return max(cashers)
+
