@@ -129,3 +129,8 @@ def queue_time(customers, n):
       cashers[min_index] += customer
    return max(cashers)
 
+# 6kyu Convert string to camel case
+def to_camel_case(text):
+   array = [char for char in text.replace("_", "-").split("-")]
+   ans = array[0] + "".join([char.capitalize() for char in array if char != array[0]])
+   return ans
