@@ -151,3 +151,17 @@ def to_camel_case(text):
     array = [char for char in text.replace("_", "-").split("-")]
     ans = array[0] + "".join([char.capitalize() for char in array if char != array[0]])
     return ans
+
+#4kyu Sum Strings as Numbers
+def sum_strings(x, y):
+    x = x.rjust(max(len(x), len(y)), "0")
+    y = y.rjust(max(len(x), len(y)), "0")
+    res = []
+    c = 0
+    for num1, num2 in zip(x[::-1], y[::-1]):
+        temp = int(num1) + int(num2) + c
+        c = temp // 10
+        res.append(temp % 10)
+    if c:
+        res.append(c)
+    return "".join(map(str, res[::-1])).lstrip("0") or "0"
