@@ -152,7 +152,7 @@ def to_camel_case(text):
     ans = array[0] + "".join([char.capitalize() for char in array if char != array[0]])
     return ans
 
-#4kyu Sum Strings as Numbers
+# 4kyu Sum Strings as Numbers
 def sum_strings(x, y):
     x = x.rjust(max(len(x), len(y)), "0")
     y = y.rjust(max(len(x), len(y)), "0")
@@ -165,3 +165,20 @@ def sum_strings(x, y):
     if c:
         res.append(c)
     return "".join(map(str, res[::-1])).lstrip("0") or "0"
+
+# 4kyu Sort binary tree by levels // BFS
+def tree_by_levels(node):
+    res = []
+    queue = []
+    if node is not None:
+        queue.append(node)
+    else:
+        return []
+    while len(queue) > 0:
+        temp = queue.pop(0)
+        res.append(temp.value)
+        if temp.left is not None:
+            queue.append(temp.left)
+        if temp.right is not None:
+            queue.append(temp.right)
+    return res
