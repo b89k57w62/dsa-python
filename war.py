@@ -152,6 +152,7 @@ def to_camel_case(text):
     ans = array[0] + "".join([char.capitalize() for char in array if char != array[0]])
     return ans
 
+
 # 4kyu Sum Strings as Numbers
 def sum_strings(x, y):
     x = x.rjust(max(len(x), len(y)), "0")
@@ -165,6 +166,7 @@ def sum_strings(x, y):
     if c:
         res.append(c)
     return "".join(map(str, res[::-1])).lstrip("0") or "0"
+
 
 # 4kyu Sort binary tree by levels // BFS
 def tree_by_levels(node):
@@ -183,28 +185,41 @@ def tree_by_levels(node):
             queue.append(temp.right)
     return res
 
-# 4kyu Connect Four 
+
+# 4kyu Connect Four
 def who_is_winner(pieces_position_list):
-    matrix = [[0]*7 for i in range(6)]
-    col_map = {'A': 0, 'B': 1, 'C': 2, 'D': 3, 'E': 4, 'F':5, 'G': 6}
-    
+    matrix = [[0] * 7 for i in range(6)]
+    col_map = {"A": 0, "B": 1, "C": 2, "D": 3, "E": 4, "F": 5, "G": 6}
+
     def check(player):
         for row in range(6):
             for col in range(7):
-                if col + 3 < 7 and all(matrix[row][col+i] == player for i in range(4)):
+                if col + 3 < 7 and all(
+                    matrix[row][col + i] == player for i in range(4)
+                ):
                     return player
-                if row + 3 < 6 and all(matrix[row+i][col] == player for i in range(4)):
+                if row + 3 < 6 and all(
+                    matrix[row + i][col] == player for i in range(4)
+                ):
                     return player
-                if row + 3 < 6 and col + 3 < 7 and all(matrix[row+i][col+i] == player for i in range(4)):
+                if (
+                    row + 3 < 6
+                    and col + 3 < 7
+                    and all(matrix[row + i][col + i] == player for i in range(4))
+                ):
                     return player
-                if row + 3 < 6 and col - 3 >= 0 and all(matrix[row+i][col-i] == player for i in range(4)):
+                if (
+                    row + 3 < 6
+                    and col - 3 >= 0
+                    and all(matrix[row + i][col - i] == player for i in range(4))
+                ):
                     return player
         return None
-    
+
     for move in pieces_position_list:
-        col_str, player = move.split('_')
+        col_str, player = move.split("_")
         col = col_map[col_str]
-        
+
         for row in range(5, -1, -1):
             if matrix[row][col] == 0:
                 matrix[row][col] = player
@@ -213,4 +228,3 @@ def who_is_winner(pieces_position_list):
         if winner:
             return winner
     return "Draw"
-    
