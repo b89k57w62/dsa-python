@@ -228,3 +228,14 @@ def who_is_winner(pieces_position_list):
         if winner:
             return winner
     return "Draw"
+
+
+# 6kyu Build Tower
+def tower_builder(n_floors):
+    res = []
+    w = 2 * n_floors - 1
+    for i in range(1, n_floors + 1):
+        star = "*" * (2 * i - 1)
+        space = " " * ((w - len(star)) // 2)
+        res.append(f"{space}{star}{space}")
+    return res
