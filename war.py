@@ -239,3 +239,15 @@ def tower_builder(n_floors):
         space = " " * ((w - len(star)) // 2)
         res.append(f"{space}{star}{space}")
     return res
+
+
+# 6kyu Unique In Order
+def unique_in_order(sequence):
+    res = []
+    list_srting = [char for char in sequence]
+    for i in range(len(list_srting)):
+        if i == 0:
+            res.append(list_srting[i])
+        elif list_srting[i] != list_srting[i - 1]:
+            res.append(list_srting[i])
+    return res
