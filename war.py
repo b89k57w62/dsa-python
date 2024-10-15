@@ -251,3 +251,16 @@ def unique_in_order(sequence):
         elif list_srting[i] != list_srting[i - 1]:
             res.append(list_srting[i])
     return res
+
+# leetcode easy Merge Sorted Array
+class Solution(object):
+    def merge(self, nums1, m, nums2, n):
+        """
+        :type nums1: List[int]
+        :type m: int
+        :type nums2: List[int]
+        :type n: int
+        :rtype: None Do not return anything, modify nums1 in-place instead.
+        """
+        nums1[m:] = nums2[:n]
+        nums1.sort()
