@@ -252,6 +252,7 @@ def unique_in_order(sequence):
             res.append(list_srting[i])
     return res
 
+
 # leetcode easy Merge Sorted Array
 class Solution(object):
     def merge(self, nums1, m, nums2, n):
@@ -264,3 +265,18 @@ class Solution(object):
         """
         nums1[m:] = nums2[:n]
         nums1.sort()
+
+
+# leetcode easy Remove Element
+class Solution(object):
+    def removeElement(self, nums, val):
+        """
+        :type nums: List[int]
+        :type val: int
+        :rtype: int
+        """
+        while val in nums:
+            if val in nums:
+                nums.remove(val)
+        k = len(nums)
+        return k
