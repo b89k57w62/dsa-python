@@ -296,3 +296,16 @@ class Solution(object):
                 nums[unique_ptr] = nums[i]
 
         return unique_ptr + 1
+
+
+# leetcode easy Majority Element
+class Solution(object):
+    def majorityElement(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        n = len(nums)
+        for num in nums:
+            if nums.count(num) > n / 2:
+                return num
