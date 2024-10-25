@@ -107,3 +107,26 @@ class Solution(object):
             elif price - min_price > max_profit:
                 max_profit = price - min_price
         return max_profit
+
+
+# leetcode medium Best Time to Buy and Sell Stock II
+class Solution(object):
+    def maxProfit(self, prices):
+        """
+        :type prices: List[int]
+        :rtype: int
+        """
+        min_price = float("inf")
+        max_profit = 0
+        total = 0
+        for i, price in enumerate(prices):
+            if price < min_price:
+                min_price = price
+            if price - min_price > max_profit:
+                max_profit = price - min_price
+                total += max_profit
+                min_price = float("inf")
+            elif i < len(prices) - 1 and price < prices[i + 1]:
+                total += prices[i + 1] - price
+                min_price = float("inf")
+        return total

@@ -252,6 +252,7 @@ def unique_in_order(sequence):
             res.append(list_srting[i])
     return res
 
+
 # 7kyu String ends with?
 def solution(text, ending):
     if text.endswith(ending):
