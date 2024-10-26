@@ -130,3 +130,20 @@ class Solution(object):
                 total += prices[i + 1] - price
                 min_price = float("inf")
         return total
+
+
+# leetcode medium Jump Game
+class Solution(object):
+    def canJump(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: bool
+        """
+        max_range = 0
+        for i in range(len(nums)):
+            if i > max_range:
+                return False
+            max_range = max(max_range, i + nums[i])
+            if max_range >= len(nums) - 1:
+                return True
+        return False
