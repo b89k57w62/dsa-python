@@ -147,3 +147,21 @@ class Solution(object):
             if max_range >= len(nums) - 1:
                 return True
         return False
+
+
+# leetcode medium Jump Game II
+class Solution(object):
+    def jump(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        boundary = 0
+        counts = 0
+        max_distance = 0
+        for i in range(len(nums) - 1):
+            max_distance = max(max_distance, i + nums[i])
+            if i == boundary:
+                counts += 1
+                boundary = max_distance
+        return counts
