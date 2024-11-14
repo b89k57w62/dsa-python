@@ -165,3 +165,20 @@ class Solution(object):
                 counts += 1
                 boundary = max_distance
         return counts
+
+
+# leetcode medium H-Index
+class Solution(object):
+    def hIndex(self, citations):
+        """
+        :type citations: List[int]
+        :rtype: int
+        """
+        sorted_citations = sorted(citations, reverse=True)
+        h_index = 0
+        for i, citation in enumerate(sorted_citations):
+            if citation >= i + 1:
+                h_index = i + 1
+            else:
+                break
+        return h_index
