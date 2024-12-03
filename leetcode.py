@@ -182,3 +182,26 @@ class Solution(object):
             else:
                 break
         return h_index
+
+
+# leetcode easy Ransom Note
+class Solution(object):
+    def canConstruct(self, ransomNote, magazine):
+        """
+        :type ransomNote: str
+        :type magazine: str
+        :rtype: bool
+        """
+        dd = {}
+        for char in magazine:
+            if char not in dd:
+                dd[char] = 1
+            else:
+                dd[char] += 1
+
+        for char in ransomNote:
+            if char in dd and dd[char] > 0:
+                dd[char] -= 1
+            else:
+                return False
+        return True
