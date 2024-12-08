@@ -206,6 +206,7 @@ class Solution(object):
                 return False
         return True
 
+
 # leetcode easy Isomorphic Strings
 class Solution(object):
     def isIsomorphic(self, s, t):
@@ -219,8 +220,34 @@ class Solution(object):
         map_s_t = {}
         map_t_s = {}
         for c1, c2 in zip(s, t):
-            if (c1 in map_s_t and map_s_t[c1] != c2) or (c2 in map_t_s and map_t_s[c2] != c1):
+            if (c1 in map_s_t and map_s_t[c1] != c2) or (
+                c2 in map_t_s and map_t_s[c2] != c1
+            ):
                 return False
             map_s_t[c1] = c2
             map_t_s[c2] = c1
+        return True
+
+
+# leetcode easy Word Pattern
+class Solution(object):
+    def wordPattern(self, pattern, s):
+        """
+        :type pattern: str
+        :type s: str
+        :rtype: bool
+        """
+        list_pattern = [char for char in pattern]
+        list_s = s.split(" ")
+        if len(list_pattern) != len(list_s):
+            return False
+        map_pattern_s = {}
+        map_s_pattern = {}
+        for c1, c2 in zip(list_pattern, list_s):
+            if (c1 in map_pattern_s and map_pattern_s[c1] != c2) or (
+                c2 in map_s_pattern and map_s_pattern[c2] != c1
+            ):
+                return False
+            map_pattern_s[c1] = c2
+            map_s_pattern[c2] = c1
         return True
