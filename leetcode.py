@@ -251,3 +251,39 @@ class Solution(object):
             map_pattern_s[c1] = c2
             map_s_pattern[c2] = c1
         return True
+
+# leetcode easy Valid Anagram
+class Solution(object):
+    def isAnagram(self, s, t):
+        """
+        :type s: str
+        :type t: str
+        :rtype: bool
+        """
+        if len(s) != len(t):
+            return False
+        mapping = {}
+        mapping_t = {}
+        for char in s:
+            if char not in mapping:
+                mapping[char] = 1
+            else:
+                mapping[char] += 1
+        
+        for char in t:
+            if char not in mapping_t:
+                mapping_t[char] = 1
+            else:
+                mapping_t[char] += 1
+        
+        for k, v in mapping.items():
+            if k not in mapping_t:
+                return False
+            else:
+                if mapping[k] != mapping_t[k]:
+                    return False
+        return True
+
+            
+            
+            
