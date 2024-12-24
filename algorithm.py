@@ -1,5 +1,5 @@
 # 題目1: 找出數字0連續出現最多的次數, easy
-def find_sequence_zero(n: int):
+def find_sequence_zero(n: int) -> int:
     """
     問題: 給定一個整數n, 傳回數字0在n中連續出現最多的次數
     範例: n = 9003, 回傳值2
@@ -15,3 +15,45 @@ def find_sequence_zero(n: int):
             count = 0
         n = n // 10
     return max_count
+
+
+# 題目2: 判斷是否為回文數字, easy
+def is_palindrome_number(n: int, method_type: str) -> bool:
+    from math import floor, log
+
+    """
+    問題: 給定一個整數n, 判斷此數字是否為回文數字
+    範例: 13231, True 
+    """
+    if method_type == "str":
+        num_to_str = str(n)
+        reverse_num_to_str = num_to_str[::-1]
+        if num_to_str == reverse_num_to_str:
+            return True
+        return False
+    elif method_type == "int":
+        digits = floor(log(n, 10)) + 1  # 判斷共幾位數
+        loop_count = digits // 2
+        for i in range(loop_count):
+            low = n % 10
+            high = n // (10 ** (digits - 1))
+            if low != high:
+                return False
+            n = n % (10 ** (digits - 1))  # 移除最高位
+            n = n // 10  # 移除最低位
+            digits -= 2
+        return True
+
+
+# 題目5: star tree -
+def build_tree(n: int) -> None:
+    """
+    問題: 輸入整入, 印出金字塔
+    """
+    for row in range(1, n + 1):
+        sapce = " "
+        space_count = n - row
+        star_count = 2 * row - 1
+        print(f"{space_count * sapce}{"*"*star_count}{space_count * sapce}")
+
+
