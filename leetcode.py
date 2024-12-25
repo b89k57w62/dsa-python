@@ -284,3 +284,18 @@ class Solution(object):
                 if mapping[k] != mapping_t[k]:
                     return False
         return True
+
+
+# leetcode easy Fibonacci Number
+class Solution(object):
+    def fib(self, n):
+        """
+        :type n: int
+        :rtype: int
+        """
+        if n <= 0:
+            return 0
+        elif n == 1:
+            return 1
+        result = self.fib(n - 1) + self.fib(n - 2)
+        return result

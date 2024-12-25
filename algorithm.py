@@ -55,5 +55,3 @@ def build_tree(n: int) -> None:
         space_count = n - row
         star_count = 2 * row - 1
         print(f"{space_count * sapce}{"*"*star_count}{space_count * sapce}")
-
-
