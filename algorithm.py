@@ -55,3 +55,13 @@ def build_tree(n: int) -> None:
         space_count = n - row
         star_count = 2 * row - 1
         print(f"{space_count * sapce}{"*"*star_count}{space_count * sapce}")
+
+
+# 題目6: 遞回版歐幾里得演算法
+def gcd_euclid(m: int, n: int):
+    """
+    問題: 求兩數最大公因數, 根據數學定義 gcd(m, n) = gcd(n, m%n)
+    """
+    if n == 0:
+        return m
+    return gcd_euclid(n, m % n)
