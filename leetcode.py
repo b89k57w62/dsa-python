@@ -299,3 +299,22 @@ class Solution(object):
             return 1
         result = self.fib(n - 1) + self.fib(n - 2)
         return result
+
+
+# leetcode easy Greatest Common Divisor of Strings
+class Solution(object):
+    def gcdOfStrings(self, str1, str2):
+        """
+        :type str1: str
+        :type str2: str
+        :rtype: str
+        """
+        if str1 + str2 != str2 + str1:
+            return ""
+        gcd_len = self.gcd(len(str2), len(str1) % len(str2))
+        return (str1 + str2)[:gcd_len]
+
+    def gcd(self, m, n):
+        if n == 0:
+            return m
+        return self.gcd(n, m % n)
