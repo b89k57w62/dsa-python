@@ -65,3 +65,20 @@ def gcd_euclid(m: int, n: int):
     if n == 0:
         return m
     return gcd_euclid(n, m % n)
+
+
+# 題目7: 快速次方
+def fastexp(x: int, n: int):
+    """
+    問題: 回傳值x的n次方, 最多使用2 * log n個乘法
+    解法: 快速冪, 核心在每一層都將範圍減半
+    """
+    if n == 1:
+        return x
+    half = fastexp(
+        x, n // 2
+    )  # 暫存結果, 則不需要使用兩次遞迴, 以此避免運算次數以指數增加
+    if n % 2 == 0:
+        return half * half
+    elif n % 2 != 0:
+        return half * half * x
