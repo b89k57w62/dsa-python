@@ -75,9 +75,8 @@ def fastexp(x: int, n: int):
     """
     if n == 1:
         return x
-    half = fastexp(
-        x, n // 2
-    )  # 暫存結果, 則不需要使用兩次遞迴, 以此避免運算次數以指數增加
+    # 暫存結果, 則不需要使用兩次遞迴, 以此避免運算次數以指數增加
+    half = fastexp(x, n // 2)
     if n % 2 == 0:
         return half * half
     elif n % 2 != 0:
