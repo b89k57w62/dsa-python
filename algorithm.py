@@ -82,3 +82,19 @@ def fastexp(x: int, n: int):
         return half * half
     elif n % 2 != 0:
         return half * half * x
+
+
+# 河內塔
+def hanoi(n: int, start: str, end: str, temp: str, steps: list = None):
+    if steps == None:
+        steps = []
+    if n == 1:
+        steps.append((start, end))
+        return len(steps), steps
+    # step1
+    hanoi(n - 1, start, temp, end, steps)
+    # step2
+    steps.append((start, end))
+    # step3
+    hanoi(n - 1, temp, end, start, steps)
+    return len(steps), steps
