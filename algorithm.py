@@ -97,3 +97,13 @@ def hanoi(n: int, start: str, end: str, temp: str, steps: list = None):
     # step3
     hanoi(n - 1, temp, end, start, steps)
     return len(steps), steps
+
+
+# 二項式係數遞迴
+def binomial_coefficient(n: int, k: int):
+    """
+    n >= k, n個元素, 取出k個元素的方法數量
+    """
+    if n == k or k == 0:
+        return 1
+    return binomial_coefficient(n - 1, k - 1) + binomial_coefficient(n - 1, k)
