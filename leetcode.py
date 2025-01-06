@@ -318,3 +318,31 @@ class Solution(object):
         if n == 0:
             return m
         return self.gcd(n, m % n)
+
+
+# leetcode easy Roman to Integer
+class Solution(object):
+    def romanToInt(self, s):
+        """
+        :type s: str
+        :rtype: int
+        """
+        benchmark = {
+            "I": 1,
+            "V": 5,
+            "X": 10,
+            "L": 50,
+            "C": 100,
+            "D": 500,
+            "M": 1000,
+        }
+        total = 0
+        previous_value = 0
+        for char in reversed(s):
+            current_value = benchmark[char]
+            if current_value >= previous_value:
+                total += current_value
+            else:
+                total -= current_value
+            previous_value = current_value
+        return total
