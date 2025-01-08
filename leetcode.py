@@ -346,3 +346,20 @@ class Solution(object):
                 total -= current_value
             previous_value = current_value
         return total
+
+
+# leetcode easy Length of Last Word
+class Solution(object):
+    def lengthOfLastWord(self, s):
+        """
+        :type s: str
+        :rtype: int
+        """
+        text = s.split(" ")
+        result = []
+        for world in text:
+            if "" == world:
+                continue
+            else:
+                result.append(world)
+        return len(result[-1])
