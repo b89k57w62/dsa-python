@@ -363,3 +363,21 @@ class Solution(object):
             else:
                 result.append(world)
         return len(result[-1])
+
+
+# leetcode easy Longest Common Prefix
+class Solution(object):
+    def longestCommonPrefix(self, strs):
+        """
+        :type strs: List[str]
+        :rtype: str
+        """
+        if not strs:
+            return ""
+        res = strs[0]
+        for word in strs[1:]:
+            while not word.startswith(res):
+                res = res[:-1]
+                if not res:
+                    return ""
+        return res
