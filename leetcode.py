@@ -395,3 +395,36 @@ class Solution(object):
             return haystack.index(needle)
         else:
             return -1
+
+
+# leet easy 125. Valid Palindrome
+class Solution(object):
+    def isPalindrome(self, s, solution):
+        """
+        :type s: str
+        :rtype: bool
+        """
+        if solution == "tow pointer":
+            left, right = 0, len(s) - 1
+
+            while left < right:
+                while left < right and not s[left].isalnum():
+                    left += 1
+                while left < right and not s[right].isalnum():
+                    right -= 1
+                if s[left].lower() != s[right].lower():
+                    return False
+                left += 1
+                right -= 1
+            return True
+        else:
+            results = []
+            for char in s:
+                if char.isalpha() or char.isdigit():
+                    results.append(char)
+
+            results = ("".join(results)).lower()
+            reversed_results = "".join(reversed(results))
+            if results == reversed_results:
+                return True
+            return False
