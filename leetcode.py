@@ -447,3 +447,19 @@ class Solution(object):
                 s_index += 1
             t_index += 1
         return s_index == len(s)
+
+
+# leetcode easy 1. Two Sum
+class Solution(object):
+    def twoSum(self, nums, target):
+        """
+        :type nums: List[int]
+        :type target: int
+        :rtype: List[int]
+        """
+        storage = {}
+        for idx, num in enumerate(nums):
+            temp = target - num
+            if temp in storage:
+                return [idx, storage[temp]]
+            storage[num] = idx
