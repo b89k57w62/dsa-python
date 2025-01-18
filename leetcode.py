@@ -463,3 +463,17 @@ class Solution(object):
             if temp in storage:
                 return [idx, storage[temp]]
             storage[num] = idx
+
+
+# leetcode easy 202. Happy Number
+class Solution(object):
+    def isHappy(self, n):
+        """
+        :type n: int
+        :rtype: bool
+        """
+        seen = set()
+        while n != 1 and n not in seen:
+            seen.add(n)
+            n = sum([int(num) ** 2 for num in str(n)])
+        return n == 1
