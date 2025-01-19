@@ -477,3 +477,22 @@ class Solution(object):
             seen.add(n)
             n = sum([int(num) ** 2 for num in str(n)])
         return n == 1
+
+
+# leetcode easy 219. Contains Duplicate II
+class Solution(object):
+    def containsNearbyDuplicate(self, nums, k):
+        """
+        :type nums: List[int]
+        :type k: int
+        :rtype: bool
+        """
+        seen = {}
+        for idx, num in enumerate(nums):
+            if num not in seen:
+                seen[num] = idx
+            else:
+                if abs(seen[num] - idx) <= k:
+                    return True
+                seen[num] = idx
+        return False
