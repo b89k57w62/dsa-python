@@ -496,3 +496,30 @@ class Solution(object):
                     return True
                 seen[num] = idx
         return False
+
+
+# leetcode easy 228. Summary Ranges
+class Solution(object):
+    def summaryRanges(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: List[str]
+        """
+        result = []
+        if len(nums) == 0:
+            return []
+        start = nums[0]
+        for i in range(1, len(nums)):
+            if nums[i] != nums[i - 1] + 1:
+                result.append(
+                    "{}->{}".format(start, nums[i - 1])
+                    if start != nums[i - 1]
+                    else "{}".format(start)
+                )
+                start = nums[i]
+        result.append(
+            "{}->{}".format(start, nums[-1])
+            if start != nums[-1]
+            else "{}".format(nums[-1])
+        )
+        return result
