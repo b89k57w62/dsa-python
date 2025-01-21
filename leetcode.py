@@ -1,6 +1,8 @@
-# leetcode easy Merge Sorted Array
+# leetcode easy 88. Merge Sorted Array
+# 內建排序時間複雜度為O((m+n)log(m+n))線性對數階, 空間複雜度是O(m+n), 最差的情況.
+# 雙指針時間複雜度為O(m+n)線性階, 空間複雜度是O(1)常數階, 未分配其他空間儲存.
 class Solution(object):
-    def merge(self, nums1, m, nums2, n):
+    def merge(self, nums1: list, m: int, nums2: list, n: int, solutions: str):
         """
         :type nums1: List[int]
         :type m: int
@@ -8,8 +10,25 @@ class Solution(object):
         :type n: int
         :rtype: None Do not return anything, modify nums1 in-place instead.
         """
-        nums1[m:] = nums2[:n]
-        nums1.sort()
+        if solutions == "buildin_sort":
+            nums1[m:] = nums2[:n]
+            return nums1.sort()
+        elif solutions == "two_pointer":
+            pointer1, pointer2 = m - 1, n - 1
+            index = m + n - 1
+            while pointer1 >= 0 and pointer2 >= 0:
+                if nums1[pointer1] > nums2[pointer2]:
+                    nums1[index] = nums1[pointer1]
+                    pointer1 -= 1
+                else:
+                    nums1[index] = nums2[pointer2]
+                    pointer2 -= 1
+                index -= 1
+            while pointer2 > 0:
+                nums1[index] = nums2[pointer2]
+                pointer2 -= 1
+                index -= 1
+            return nums1
 
 
 # leetcode easy Remove Element
