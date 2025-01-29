@@ -3,7 +3,7 @@ from typing import List
 
 # leetcode easy 88. Merge Sorted Array
 # 內建排序時間複雜度為O((m+n)log(m+n))線性對數階, 空間複雜度是O(m+n), 最差的情況.
-# 雙指針時間複雜度為O(m+n)線性階, 空間複雜度是O(1)常數階, 未分配其他空間儲存.
+# 雙指針解法時間複雜度為O(m+n)線性階, 空間複雜度是O(1)常數階, 未分配其他空間儲存.
 class Solution(object):
     def merge(self, nums1: list, m: int, nums2: list, n: int, solutions: str):
         """
@@ -37,7 +37,7 @@ class Solution(object):
 # leetcode easy 27. Remove Element
 # 內建的remove方法會遍歷list, 故會造成時間複雜度趨近於O(n^2), while+remove等價於雙層迴圈.
 # 空間複雜度則是O(1).
-# 雙指針方式則時間複雜度O(n), 空間複雜度O(1).
+# 雙指針解法則時間複雜度O(n), 空間複雜度O(1).
 class Solution(object):
     def removeElement(self, nums: List[int], val: int, solutions: str):
         """
@@ -59,7 +59,9 @@ class Solution(object):
         return k
 
 
-# leetcode easy Remove Duplicates from Sorted Array
+# leetcode easy 26. Remove Duplicates from Sorted Array
+# 時間複雜度O(n), 空間複雜度O(1)
+# 雙指針解法
 class Solution(object):
     def removeDuplicates(self, nums):
         """
