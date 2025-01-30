@@ -90,7 +90,9 @@ class Solution(object):
                 return num
 
 
-# leetcode medium Remove Duplicates from Sorted Array II
+# leetcode medium 80. Remove Duplicates from Sorted Array II
+# 時間複雜度O(n), 空間複雜度O(1)
+# 雙指針解法
 class Solution(object):
     def removeDuplicates(self, nums):
         """
