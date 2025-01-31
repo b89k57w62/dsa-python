@@ -73,21 +73,7 @@ class Solution(object):
             if nums[i] != nums[unique_ptr]:
                 unique_ptr += 1
                 nums[unique_ptr] = nums[i]
-
         return unique_ptr + 1
-
-
-# leetcode easy Majority Element
-class Solution(object):
-    def majorityElement(self, nums):
-        """
-        :type nums: List[int]
-        :rtype: int
-        """
-        n = len(nums)
-        for num in nums:
-            if nums.count(num) > n / 2:
-                return num
 
 
 # leetcode medium 80. Remove Duplicates from Sorted Array II
@@ -105,6 +91,32 @@ class Solution(object):
                 nums[j] = nums[i]
                 j += 1
         return j
+
+
+# leetcode easy 169. Majority Element
+# 多數投票算法, 時間複雜度O(n), 空間複雜度O(1)
+# 排序法, 時間複雜度O(n log n), 空間複雜度O(1)
+class Solution(object):
+    def majorityElement(self, nums, solutions: str):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        if solutions == "boyer-moore":
+            candidate = None
+            count = 0
+            for num in nums:
+                if count == 0:
+                    candidate = num
+                    count += 1
+                elif candidate == num:
+                    count += 1
+                else:
+                    count -= 1
+            return candidate
+        elif solutions == "sort":
+            nums.sort()
+            return nums[len(nums) // 2]
 
 
 # leetcode medium Rotate Array
