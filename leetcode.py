@@ -119,7 +119,9 @@ class Solution(object):
             return nums[len(nums) // 2]
 
 
-# leetcode medium Rotate Array
+# leetcode medium 189. Rotate Array
+# 三次反轉法, 時間複雜度O(n), 空間複雜度O(1)
+# reverse(), reversed()都是原地修改nums, reversed回傳反向迭代器
 class Solution(object):
     def rotate(self, nums, k):
         """
@@ -128,16 +130,11 @@ class Solution(object):
         :rtype: None Do not return anything, modify nums in-place instead.
         """
         n = len(nums)
-        k = k % n
-        self.reverse(nums, 0, n - 1)
-        self.reverse(nums, 0, k - 1)
-        self.reverse(nums, k, n - 1)
-
-    def reverse(self, nums, start, end):
-        while start < end:
-            nums[start], nums[end] = nums[end], nums[start]
-            start += 1
-            end -= 1
+        k = k % n  # 針對edge case, 避免k值超過陣列長度
+        nums.reverse()
+        nums[:k] = reversed(nums[:k])
+        nums[k:n] = reversed(nums[k:n])
+        return nums
 
 
 # leetcode easy Best Time to Buy and Sell Stock
