@@ -137,7 +137,8 @@ class Solution(object):
         return nums
 
 
-# leetcode easy Best Time to Buy and Sell Stock
+# leetcode easy 121. Best Time to Buy and Sell Stock
+# 時間複雜度O(n), 空間複雜度(1)
 class Solution(object):
     def maxProfit(self, prices):
         """
