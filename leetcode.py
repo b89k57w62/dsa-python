@@ -155,26 +155,28 @@ class Solution(object):
         return max_profit
 
 
-# leetcode medium Best Time to Buy and Sell Stock II
+# leetcode medium 122. Best Time to Buy and Sell Stock II
+# 時間複雜度O(n), 空間複雜度O(1)
+# 貪婪演算法, 局部最優, 無回溯性
 class Solution(object):
-    def maxProfit(self, prices):
+    def maxProfit(self, prices, solutions: str):
         """
         :type prices: List[int]
         :rtype: int
         """
-        min_price = float("inf")
-        max_profit = 0
         total = 0
-        for i, price in enumerate(prices):
-            if price < min_price:
-                min_price = price
-            if price - min_price > max_profit:
-                max_profit = price - min_price
-                total += max_profit
-                min_price = float("inf")
-            elif i < len(prices) - 1 and price < prices[i + 1]:
-                total += prices[i + 1] - price
-                min_price = float("inf")
+        if solutions == "標準貪婪演算法":
+            for i in range(1, len(prices)):
+                if prices[i] > prices[i - 1]:
+                    total += prices[i] - prices[i - 1]
+        elif solutions == "貪婪演算法但不夠精簡":
+            min_price = float("inf")
+            for i, price in enumerate(prices):
+                if price < min_price:
+                    min_price = price
+                if i < len(prices) - 1 and price < prices[i + 1]:
+                    total += prices[i + 1] - price
+                    min_price = float("inf")
         return total
 
 
