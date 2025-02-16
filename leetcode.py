@@ -180,7 +180,8 @@ class Solution(object):
         return total
 
 
-# leetcode medium Jump Game
+# leetcode medium 55. Jump Game
+# 時間複雜度O(n), 空間複雜度O(1)
 class Solution(object):
     def canJump(self, nums):
         """
