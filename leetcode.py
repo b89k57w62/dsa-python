@@ -181,6 +181,7 @@ class Solution(object):
 
 
 # leetcode medium 55. Jump Game
+# 貪婪演算法
 # 時間複雜度O(n), 空間複雜度O(1)
 class Solution(object):
     def canJump(self, nums):
@@ -199,6 +200,8 @@ class Solution(object):
 
 
 # leetcode medium Jump Game II
+# 貪婪演算法
+# 時間複雜度O(n), 空間複雜度O(1)
 class Solution(object):
     def jump(self, nums):
         """
