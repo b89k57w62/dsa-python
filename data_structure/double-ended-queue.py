@@ -84,3 +84,26 @@ class LinkedListDeque:
             res[i] = node.val
             node = node.next
         return res
+    
+class ArrayDeque:
+    """
+    A double-ended queue implemented using an array.
+    """
+
+    def __init__(self, capacity: int):
+        self.nums = [0] * capacity
+        self._front = 0
+        self._size = 0
+    
+    def capacity(self):
+        return len(self.nums)
+    
+    def size(self):
+        return self._size
+    
+    def is_empty(self):
+        return self._size == 0
+    
+    def index(self, i: int):
+        """Circular index calculation"""
+        return (i + self.capacity()) % self.capacity()
