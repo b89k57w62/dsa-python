@@ -575,3 +575,18 @@ class Solution(object):
             else "{}".format(nums[-1])
         )
         return result
+
+
+# leetcode easy 20. Valid Parentheses
+class Solution:
+    def isValid(self, s: str) -> bool:
+        stack = []
+        pair = {")": "(", "]": "[", "}": "{"}
+        for i in s:
+            if i in pair.values():
+                stack.append(i)
+            elif stack and stack[-1] == pair[i]:
+                stack.pop()
+            else:
+                return False
+        return not stack
