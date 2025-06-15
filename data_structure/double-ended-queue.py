@@ -84,7 +84,8 @@ class LinkedListDeque:
             res[i] = node.val
             node = node.next
         return res
-    
+
+
 class ArrayDeque:
     """
     A double-ended queue implemented using an array.
@@ -94,16 +95,62 @@ class ArrayDeque:
         self.nums = [0] * capacity
         self._front = 0
         self._size = 0
-    
+
     def capacity(self):
         return len(self.nums)
-    
+
     def size(self):
         return self._size
-    
+
     def is_empty(self):
         return self._size == 0
-    
+
     def index(self, i: int):
         """Circular index calculation"""
         return (i + self.capacity()) % self.capacity()
+
+    def push_first(self, val):
+        if self._size == self.capacity():
+            raise IndexError("Deque is full")
+        self._front = self.index(self._front - 1)
+        self.nums[self._front] = val
+        self._size += 1
+
+    def push_last(self, val):
+        if self._size == self.capacity():
+            raise IndexError("Deque is full")
+        rear = self.index(self._front + self._size)
+        self.nums[rear] = val
+        self._size += 1
+
+    def pop_first(self):
+        if self.is_empty():
+            raise IndexError("Deque is empty")
+        num = self.peek_first()
+        self._front = self.index(self._front + 1)
+        self._size -= 1
+        return num
+
+    def pop_last(self):
+        if self.is_empty():
+            raise IndexError("Deque is empty")
+        num = self.peek_last()
+        self._size -= 1
+        return num
+
+    def peek_first(self):
+        if self.is_empty():
+            raise IndexError("Deque is empty")
+        return self.nums[self._front]
+
+    def peek_last(self):
+        if self.is_empty():
+            raise IndexError("Deque is empty")
+        last = self.index(self._front + self._size - 1)
+        return self.nums[last]
+
+    def to_array(self):
+        res = []
+        for i in range(self.size()):
+            res.append(self.nums[self.index(self._front + i)])
+        return res
