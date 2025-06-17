@@ -1,4 +1,5 @@
 from typing import List
+from collections import deque
 import operator
 
 
@@ -663,3 +664,17 @@ class MyQueue:
         if not self.out_stack:
             while self.in_stack:
                 self.out_stack.append(self.in_stack.pop())
+
+
+# leetcode medium 933. Number of Recent Calls
+class RecentCounter:
+
+    def __init__(self):
+        self.queue = deque()
+
+    def ping(self, t: int) -> int:
+        self.queue.append(t)
+        boundry = t - 3000
+        while self.queue and self.queue[0] < boundry:
+            self.queue.popleft()
+        return len(self.queue)
