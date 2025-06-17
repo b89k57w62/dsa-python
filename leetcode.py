@@ -1,4 +1,5 @@
 from typing import List
+import operator
 
 
 # leetcode easy 88. Merge Sorted Array
@@ -615,3 +616,23 @@ class MinStack:
 
     def getMin(self) -> int:
         return self.stack[-1][1]
+
+
+# leetcode medium 150. Evaluate Reverse Polish Notation
+class Solution:
+    def evalRPN(self, tokens: List[str]) -> int:
+        self.stack = []
+        operators = {
+            "+": operator.add,
+            "-": operator.sub,
+            "*": operator.mul,
+            "/": lambda a, b: int(a / b),
+        }
+        for token in tokens:
+            if token in operators:
+                right = self.stack.pop()
+                left = self.stack.pop()
+                self.stack.append(operators[token](left, right))
+            else:
+                self.stack.append(int(token))
+        return self.stack.pop()
