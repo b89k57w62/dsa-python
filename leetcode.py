@@ -678,3 +678,64 @@ class RecentCounter:
         while self.queue and self.queue[0] < boundry:
             self.queue.popleft()
         return len(self.queue)
+
+
+# leetcode medium 641. Design Circular Deque
+class MyCircularDeque:
+
+    def __init__(self, k: int):
+        self.nums = [0] * k
+        self.front = 0
+        self.size = 0
+
+    def _index(self, i: int):
+        return i % len(self.nums)
+
+    def insertFront(self, value: int) -> bool:
+        if self.size == len(self.nums):
+            return False
+        self.front = self._index(self.front - 1)
+        self.nums[self.front] = value
+        self.size += 1
+        return True
+
+    def insertLast(self, value: int) -> bool:
+        if self.size == len(self.nums):
+            return False
+        last = self._index(self.front + self.size)
+        self.nums[last] = value
+        self.size += 1
+        return True
+
+    def deleteFront(self) -> bool:
+        if self.size == 0:
+            return False
+        num = self.nums[self.front]
+        self.front = self._index(self.front + 1)
+        self.size -= 1
+        return True
+
+    def deleteLast(self) -> bool:
+        if self.size == 0:
+            return False
+        last = self.front + self.size - 1
+        self.size -= 1
+        return True
+
+    def getFront(self) -> int:
+        if self.isEmpty():
+            return -1
+        else:
+            return self.nums[self.front]
+
+    def getRear(self) -> int:
+        if self.isEmpty():
+            return -1
+        last = self._index(self.front + self.size - 1)
+        return self.nums[last]
+
+    def isEmpty(self) -> bool:
+        return self.size == 0
+
+    def isFull(self) -> bool:
+        return self.size == len(self.nums)
