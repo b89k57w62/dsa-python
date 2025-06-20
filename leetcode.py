@@ -782,3 +782,15 @@ class MyCircularQueue:
 
     def isFull(self) -> bool:
         return self._size == len(self.queue)
+
+
+# leetcode easy 217. Contains Duplicate
+class Solution:
+    def containsDuplicate(self, nums: List[int]) -> bool:
+        hash = {}
+        for num in nums:
+            if num not in hash:
+                hash[num] = num
+            else:
+                return True
+        return False
