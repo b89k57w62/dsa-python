@@ -307,39 +307,6 @@ class Solution(object):
         return True
 
 
-# leetcode easy Valid Anagram
-class Solution(object):
-    def isAnagram(self, s, t):
-        """
-        :type s: str
-        :type t: str
-        :rtype: bool
-        """
-        if len(s) != len(t):
-            return False
-        mapping = {}
-        mapping_t = {}
-        for char in s:
-            if char not in mapping:
-                mapping[char] = 1
-            else:
-                mapping[char] += 1
-
-        for char in t:
-            if char not in mapping_t:
-                mapping_t[char] = 1
-            else:
-                mapping_t[char] += 1
-
-        for k, v in mapping.items():
-            if k not in mapping_t:
-                return False
-            else:
-                if mapping[k] != mapping_t[k]:
-                    return False
-        return True
-
-
 # leetcode easy Fibonacci Number
 class Solution(object):
     def fib(self, n):
@@ -794,3 +761,24 @@ class Solution:
             else:
                 return True
         return False
+
+
+# leetcode easy 242. Valid Anagram
+class Solution:
+    def isAnagram(self, s: str, t: str) -> bool:
+        if len(s) != len(t):
+            return False
+        hash = {}
+        for char in s:
+            if char not in hash:
+                hash[char] = 1
+            else:
+                hash[char] += 1
+        for char in t:
+            if char not in hash:
+                return False
+            else:
+                hash[char] -= 1
+                if hash[char] < 0:
+                    return False
+        return True
