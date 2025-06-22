@@ -813,3 +813,17 @@ class Solution:
         items = list(hash.items())
         items.sort(key=lambda x: x[1], reverse=True)
         return [num for num, count in items[:k]]
+
+
+# leetcode medium 560. Subarray Sum Equals K
+class Solution:
+    def subarraySum(self, nums: List[int], k: int) -> int:
+        hash = {0: 1}
+        prefix = 0
+        res = 0
+        for num in nums:
+            prefix += num
+            need = prefix - k
+            res += hash.get(need, 0)
+            hash[prefix] = hash.get(prefix, 0) + 1
+        return res
