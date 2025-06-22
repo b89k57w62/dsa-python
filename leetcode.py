@@ -798,3 +798,18 @@ class Solution:
                 hash[key] = []
             hash[key].append(s)
         return list(hash.values())
+
+
+#
+# leetcode medium 347. Top K Frequent Elements
+class Solution:
+    def topKFrequent(self, nums: List[int], k: int) -> List[int]:
+        hash = {}
+        for num in nums:
+            if num not in hash:
+                hash[num] = 1
+            else:
+                hash[num] += 1
+        items = list(hash.items())
+        items.sort(key=lambda x: x[1], reverse=True)
+        return [num for num, count in items[:k]]
