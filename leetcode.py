@@ -782,3 +782,19 @@ class Solution:
                 if hash[char] < 0:
                     return False
         return True
+
+
+# leetcode medium 49. Group Anagrams
+class Solution:
+    def groupAnagrams(self, strs: List[str]) -> List[List[str]]:
+        hash = {}
+        for s in strs:
+            counters = [0] * 26
+            for char in s:
+                counters[ord(char) - ord("a")] += 1
+            key = tuple(counters)
+
+            if key not in hash:
+                hash[key] = []
+            hash[key].append(s)
+        return list(hash.values())
