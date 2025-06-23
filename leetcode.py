@@ -827,3 +827,34 @@ class Solution:
             res += hash.get(need, 0)
             hash[prefix] = hash.get(prefix, 0) + 1
         return res
+
+
+# leetcode easy 705. Design HashSet
+class MyHashSet:
+
+    def __init__(self):
+        self._capacity = 769
+        self.buckets = [ [] for _ in range(self._capacity)]
+    def hash_func(self, key):
+        return key % self._capacity
+
+    def add(self, key: int) -> None:
+        target_bucket = self.buckets[self.hash_func(key)]
+        for item in target_bucket:
+            if item == key:
+                return
+        target_bucket.append(key)
+
+    def remove(self, key: int) -> None:
+        target_bucket = self.buckets[self.hash_func(key)]
+        for i, item in enumerate(target_bucket):
+            if item == key:
+                target_bucket.pop(i)
+        return False
+
+    def contains(self, key: int) -> bool:
+        target_bucket = self.buckets[self.hash_func(key)]
+        for item in target_bucket:
+            if item == key:
+                return True
+        return False
