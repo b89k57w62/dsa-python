@@ -4,8 +4,6 @@ import operator
 
 
 # leetcode easy 88. Merge Sorted Array
-# 內建排序時間複雜度為O((m+n)log(m+n))線性對數階, 空間複雜度是O(m+n), 最差的情況.
-# 雙指針解法時間複雜度為O(m+n)線性階, 空間複雜度是O(1)常數階, 未分配其他空間儲存.
 class Solution(object):
     def merge(self, nums1: list, m: int, nums2: list, n: int, solutions: str):
         """
@@ -37,9 +35,6 @@ class Solution(object):
 
 
 # leetcode easy 27. Remove Element
-# 內建的remove方法會遍歷list, 故會造成時間複雜度趨近於O(n^2), while+remove等價於雙層迴圈.
-# 空間複雜度則是O(1).
-# 雙指針解法則時間複雜度O(n), 空間複雜度O(1).
 class Solution(object):
     def removeElement(self, nums: List[int], val: int, solutions: str):
         """
@@ -62,8 +57,6 @@ class Solution(object):
 
 
 # leetcode easy 26. Remove Duplicates from Sorted Array
-# 時間複雜度O(n), 空間複雜度O(1)
-# 雙指針解法
 class Solution(object):
     def removeDuplicates(self, nums):
         """
@@ -79,8 +72,6 @@ class Solution(object):
 
 
 # leetcode medium 80. Remove Duplicates from Sorted Array II
-# 時間複雜度O(n), 空間複雜度O(1)
-# 雙指針解法
 class Solution(object):
     def removeDuplicates(self, nums):
         """
@@ -96,8 +87,6 @@ class Solution(object):
 
 
 # leetcode easy 169. Majority Element
-# 多數投票算法, 時間複雜度O(n), 空間複雜度O(1)
-# 排序法, 時間複雜度O(n log n), 空間複雜度O(1)
 class Solution(object):
     def majorityElement(self, nums, solutions: str):
         """
@@ -122,8 +111,6 @@ class Solution(object):
 
 
 # leetcode medium 189. Rotate Array
-# 三次反轉法, 時間複雜度O(n), 空間複雜度O(1)
-# reverse(), reversed()都是原地修改nums, reversed回傳反向迭代器
 class Solution(object):
     def rotate(self, nums, k):
         """
@@ -140,7 +127,6 @@ class Solution(object):
 
 
 # leetcode easy 121. Best Time to Buy and Sell Stock
-# 時間複雜度O(n), 空間複雜度(1)
 class Solution(object):
     def maxProfit(self, prices):
         """
@@ -158,8 +144,6 @@ class Solution(object):
 
 
 # leetcode medium 122. Best Time to Buy and Sell Stock II
-# 時間複雜度O(n), 空間複雜度O(1)
-# 貪婪演算法, 局部最優, 無回溯性
 class Solution(object):
     def maxProfit(self, prices, solutions: str):
         """
@@ -183,8 +167,6 @@ class Solution(object):
 
 
 # leetcode medium 55. Jump Game
-# 貪婪演算法
-# 時間複雜度O(n), 空間複雜度O(1)
 class Solution(object):
     def canJump(self, nums):
         """
@@ -201,9 +183,7 @@ class Solution(object):
         return False
 
 
-# leetcode medium Jump Game II
-# 貪婪演算法
-# 時間複雜度O(n), 空間複雜度O(1)
+# leetcode medium 45. Jump Game II
 class Solution(object):
     def jump(self, nums):
         """
@@ -221,7 +201,7 @@ class Solution(object):
         return counts
 
 
-# leetcode medium H-Index
+# leetcode medium 274. H-Index
 class Solution(object):
     def hIndex(self, citations):
         """
@@ -238,7 +218,7 @@ class Solution(object):
         return h_index
 
 
-# leetcode easy Ransom Note
+# leetcode easy 383. Ransom Note
 class Solution(object):
     def canConstruct(self, ransomNote, magazine):
         """
@@ -261,29 +241,7 @@ class Solution(object):
         return True
 
 
-# leetcode easy Isomorphic Strings
-class Solution(object):
-    def isIsomorphic(self, s, t):
-        """
-        :type s: str
-        :type t: str
-        :rtype: bool
-        """
-        if len(s) != len(t):
-            return False
-        map_s_t = {}
-        map_t_s = {}
-        for c1, c2 in zip(s, t):
-            if (c1 in map_s_t and map_s_t[c1] != c2) or (
-                c2 in map_t_s and map_t_s[c2] != c1
-            ):
-                return False
-            map_s_t[c1] = c2
-            map_t_s[c2] = c1
-        return True
-
-
-# leetcode easy Word Pattern
+# leetcode easy 290. Word Pattern
 class Solution(object):
     def wordPattern(self, pattern, s):
         """
@@ -307,7 +265,7 @@ class Solution(object):
         return True
 
 
-# leetcode easy Fibonacci Number
+# leetcode easy 509. Fibonacci Number
 class Solution(object):
     def fib(self, n):
         """
@@ -322,7 +280,7 @@ class Solution(object):
         return result
 
 
-# leetcode easy Greatest Common Divisor of Strings
+# leetcode easy 1071. Greatest Common Divisor of Strings
 class Solution(object):
     def gcdOfStrings(self, str1, str2):
         """
@@ -341,7 +299,7 @@ class Solution(object):
         return self.gcd(n, m % n)
 
 
-# leetcode easy Roman to Integer
+# leetcode easy 13. Roman to Integer
 class Solution(object):
     def romanToInt(self, s):
         """
@@ -369,7 +327,7 @@ class Solution(object):
         return total
 
 
-# leetcode easy Length of Last Word
+# leetcode easy 58. Length of Last Word
 class Solution(object):
     def lengthOfLastWord(self, s):
         """
@@ -386,7 +344,7 @@ class Solution(object):
         return len(result[-1])
 
 
-# leetcode easy Longest Common Prefix
+# leetcode easy 14. Longest Common Prefix
 class Solution(object):
     def longestCommonPrefix(self, strs):
         """
@@ -800,7 +758,6 @@ class Solution:
         return list(hash.values())
 
 
-#
 # leetcode medium 347. Top K Frequent Elements
 class Solution:
     def topKFrequent(self, nums: List[int], k: int) -> List[int]:
