@@ -891,3 +891,17 @@ class MyHashMap:
         for i, item in enumerate(target_bucket):
             if item[0] == key:
                 target_bucket.pop(i)
+
+
+# leetcode easy 205. Isomorphic Strings
+class Solution:
+    def isIsomorphic(self, s: str, t: str) -> bool:
+        hash_1, hash_2 = {}, {}
+        for char_1, char_2 in zip(s, t):
+            if char_1 not in hash_1 and char_2 not in hash_2:
+                hash_1[char_1] = char_2
+                hash_2[char_2] = char_1
+            else:
+                if hash_1.get(char_1) != char_2 or hash_2.get(char_2) != char_1:
+                    return False
+        return True
