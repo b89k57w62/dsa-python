@@ -834,7 +834,8 @@ class MyHashSet:
 
     def __init__(self):
         self._capacity = 769
-        self.buckets = [ [] for _ in range(self._capacity)]
+        self.buckets = [[] for _ in range(self._capacity)]
+
     def hash_func(self, key):
         return key % self._capacity
 
@@ -858,3 +859,35 @@ class MyHashSet:
             if item == key:
                 return True
         return False
+
+
+# leetcode easy 706. Design HashMap
+class MyHashMap:
+
+    def __init__(self):
+        self._capacity = 769
+        self._buckets = [[] for _ in range(self._capacity)]
+
+    def hash_func(self, key):
+        return key % self._capacity
+
+    def put(self, key: int, value: int) -> None:
+        target_bucket = self._buckets[self.hash_func(key)]
+        for item in target_bucket:
+            if item[0] == key:
+                item[1] = value
+                return
+        target_bucket.append([key, value])
+
+    def get(self, key: int) -> int:
+        target_bucket = self._buckets[self.hash_func(key)]
+        for item in target_bucket:
+            if item[0] == key:
+                return item[1]
+        return -1
+
+    def remove(self, key: int) -> None:
+        target_bucket = self._buckets[self.hash_func(key)]
+        for i, item in enumerate(target_bucket):
+            if item[0] == key:
+                target_bucket.pop(i)
