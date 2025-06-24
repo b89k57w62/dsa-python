@@ -8,7 +8,7 @@ class TreeNode:
 
 class AVLTree:
     def __init__(self):
-        pass
+        self.root = None
 
     def get_height(self, node):
         return node.height if node else -1
@@ -52,3 +52,18 @@ class AVLTree:
                 node.right = self.rotate_right(node.right)
                 return self.rotate_left(node)
         return node
+
+    def insert(self, val):
+        self.root = self.insert_helper(self.root, val)
+
+    def insert_helper(self, node, val):
+        if node is None:
+            return TreeNode(val)
+        if val < node.val:
+            node.lefr = self.insert_helper(node.left, val)
+        elif val > node.val:
+            node.right = self.insert_helper(node.right, val)
+        else:
+            return node
+        self.update_height(node)
+        return self.rotate(node)
