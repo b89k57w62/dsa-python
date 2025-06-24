@@ -879,3 +879,28 @@ class Solution:
         if not p or not q or p.val != q.val:
             return False
         return self.isSameTree(p.left, q.left) and self.isSameTree(p.right, q.right)
+
+
+# leetcode easy 101. Symmetric Tree
+class Solution:
+    def isSymmetric(self, root: Optional[TreeNode]) -> bool:
+        if root is None:
+            return True
+        return self.isMirror(root.left, root.right)
+
+    def isMirror(self, left, right):
+        if not left and not right:
+            return True
+        elif not left or not right or left.val != right.val:
+            return False
+        return self.isMirror(left.left, right.right) and self.isMirror(
+            left.right, right.left
+        )
+
+
+# leetcode easy 104. Maximum Depth of Binary Tree
+class Solution:
+    def maxDepth(self, root: Optional[TreeNode]) -> int:
+        if not root:
+            return 0
+        return 1 + max(self.maxDepth(root.left), self.maxDepth(root.right))
