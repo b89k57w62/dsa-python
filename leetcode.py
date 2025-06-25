@@ -923,3 +923,15 @@ class Solution:
         if abs(left_height - right_height) > 1:
             return -1
         return max(left_height, right_height) + 1
+
+# leetcode medium 98. Validate Binary Search Tree
+class Solution:
+    def isValidBST(self, root: Optional[TreeNode]) -> bool:
+        return self.helper(root, float('-inf'), float('inf'))
+    def helper(self, node, low, high):
+        if node is None:
+            return True
+        node.val
+        if node.val <= low or node.val >= high:
+            return False
+        return self.helper(node.left, low, node.val) and self.helper(node.right, node.val, high)
