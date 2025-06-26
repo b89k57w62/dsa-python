@@ -953,3 +953,18 @@ class Solution:
             else:
                 return current_node
         return None
+
+
+# leetcode easy 108. Convert Sorted Array to Binary Search Tree
+class Solution:
+    def sortedArrayToBST(self, nums: List[int]) -> Optional[TreeNode]:
+        return self._build(0, len(nums) - 1, nums)
+
+    def _build(self, low, high, nums):
+        if low > high:
+            return None
+        mid = (low + high) // 2
+        node = TreeNode(nums[mid])
+        node.left = self._build(low, mid - 1, nums)
+        node.right = self._build(mid + 1, high, nums)
+        return node
