@@ -924,14 +924,32 @@ class Solution:
             return -1
         return max(left_height, right_height) + 1
 
+
 # leetcode medium 98. Validate Binary Search Tree
 class Solution:
     def isValidBST(self, root: Optional[TreeNode]) -> bool:
-        return self.helper(root, float('-inf'), float('inf'))
+        return self.helper(root, float("-inf"), float("inf"))
+
     def helper(self, node, low, high):
         if node is None:
             return True
         node.val
         if node.val <= low or node.val >= high:
             return False
-        return self.helper(node.left, low, node.val) and self.helper(node.right, node.val, high)
+        return self.helper(node.left, low, node.val) and self.helper(
+            node.right, node.val, high
+        )
+
+
+# leetcode easy 700. Search in a Binary Search Tree
+class Solution:
+    def searchBST(self, root: Optional[TreeNode], val: int) -> Optional[TreeNode]:
+        current_node = root
+        while current_node is not None:
+            if current_node.val < val:
+                current_node = current_node.right
+            elif current_node.val > val:
+                current_node = current_node.left
+            else:
+                return current_node
+        return None
