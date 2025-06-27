@@ -678,35 +678,35 @@ class MyCircularQueue:
         return i % len(self.queue)
 
     def enQueue(self, value: int) -> bool:
-        if self._size == len(self.queue):
+        if self.isFull():
             return False
-        rear = (self._front + self._size) % len(self.queue)
-        self.queue[self._index(rear)] = value
+        rear = self._index(self._front + self._size)
+        self.queue[rear] = value
         self._size += 1
         return True
 
     def deQueue(self) -> bool:
-        if self._size == 0:
+        if self.isEmpty():
             return False
         self._front = self._index(self._front + 1)
         self._size -= 1
         return True
 
     def Front(self) -> int:
-        if self.isEmpty():
-            return -1
-        return self.queue[self._index(self._front)]
+        return -1 if self.isEmpty() else self.queue[self._front]
 
     def Rear(self) -> int:
-        if self.isEmpty():
-            return -1
-        return self.queue[self._index(self._front + self._size - 1)]
+        return (
+            -1
+            if self.isEmpty()
+            else self.queue[self._index(self._front + self._size - 1)]
+        )
 
     def isEmpty(self) -> bool:
         return self._size == 0
 
     def isFull(self) -> bool:
-        return self._size == len(self.queue)
+        return self._size >= len(self.queue)
 
 
 # leetcode easy 217. Contains Duplicate
