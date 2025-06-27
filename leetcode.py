@@ -989,3 +989,14 @@ class Solution:
                     queue.append(node.right)
             res.append(level_vals)
         return res
+
+
+# leetcode easy 94. Binary Tree Inorder Traversal
+class Solution:
+    def inorderTraversal(self, root: Optional[TreeNode]) -> List[int]:
+        if root is None:
+            return []
+        left_val = self.inorderTraversal(root.left)
+        mid = [root.val]
+        right_val = self.inorderTraversal(root.right)
+        return left_val + mid + right_val
