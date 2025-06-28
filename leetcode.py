@@ -1000,3 +1000,14 @@ class Solution:
         mid = [root.val]
         right_val = self.inorderTraversal(root.right)
         return left_val + mid + right_val
+
+
+# leetcode easy 144. Binary Tree Preorder Traversal
+class Solution:
+    def preorderTraversal(self, root: Optional[TreeNode]) -> List[int]:
+        if root is None:
+            return []
+        mid_node = [root.val]
+        left_node = self.preorderTraversal(root.left)
+        right_node = self.preorderTraversal(root.right)
+        return mid_node + left_node + right_node
