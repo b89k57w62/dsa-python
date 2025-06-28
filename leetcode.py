@@ -1011,3 +1011,14 @@ class Solution:
         left_node = self.preorderTraversal(root.left)
         right_node = self.preorderTraversal(root.right)
         return mid_node + left_node + right_node
+
+
+# leetcode easy 145. Binary Tree Postorder Traversal
+class Solution:
+    def postorderTraversal(self, root: Optional[TreeNode]) -> List[int]:
+        if root is None:
+            return []
+        left_node = self.postorderTraversal(root.left)
+        right_node = self.postorderTraversal(root.right)
+        mid_node = [root.val]
+        return left_node + right_node + mid_node
