@@ -1044,3 +1044,33 @@ class Solution:
                 que.append(node.left)
                 que.append(node.right)
         return True
+
+
+# leetcode medium 919. Complete Binary Tree Inserter
+class CBTInserter:
+    def __init__(self, root: Optional[TreeNode]):
+        self.nodes = []
+        self.root = root
+        que = deque()
+        que.append(root)
+        while que:
+            node = que.popleft()
+            self.nodes.append(node)
+            if node.left:
+                que.append(node.left)
+            if node.right:
+                que.append(node.right)
+
+    def insert(self, val: int) -> int:
+        node = TreeNode(val)
+        i = len(self.nodes)
+        self.nodes.append(node)
+        parent_idx = (i - 1) // 2
+        if not self.nodes[parent_idx].left:
+            self.nodes[parent_idx].left = node
+        else:
+            self.nodes[parent_idx].right = node
+        return self.nodes[parent_idx].val
+
+    def get_root(self) -> Optional[TreeNode]:
+        return self.root
