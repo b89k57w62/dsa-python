@@ -1,3 +1,6 @@
+from collections import deque
+
+
 class GraphAdjMat:
     def __init__(self, vertices: list[int], edges: list[list[int]]):
         self.vertices = []
@@ -38,3 +41,18 @@ class GraphAdjMat:
             raise ValueError("Invalid edge")
         self.adj_mat[i][j] = 0
         self.adj_mat[j][i] = 0
+
+
+def graph_bfs(graph: GraphAdjMat, start: int):
+    res = []
+    visited = set()
+    queue = deque()
+    queue.append(start)
+    while len(queue) > 0:
+        vet = queue.popleft()
+        res.append(vet)
+        for adj_vet in graph.adj_mat[vet]:
+            if adj_vet not in visited:
+                queue.append(adj_vet)
+                visited.add(adj_vet)
+    return res
