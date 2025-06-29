@@ -1022,3 +1022,25 @@ class Solution:
         right_node = self.postorderTraversal(root.right)
         mid_node = [root.val]
         return left_node + right_node + mid_node
+
+
+# leetcode medium 958. Check Completeness of a Binary Tree
+class Solution:
+    def isCompleteTree(self, root: Optional[TreeNode]) -> bool:
+        if not root:
+            return False
+        que = deque()
+        que.append(root)
+        res = []
+        first_none = False
+        while que:
+            node = que.popleft()
+            res.append(res)
+            if node is None:
+                first_none = True
+            else:
+                if first_none:
+                    return False
+                que.append(node.left)
+                que.append(node.right)
+        return True
