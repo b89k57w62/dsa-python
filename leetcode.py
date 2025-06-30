@@ -808,7 +808,6 @@ class MyHashSet:
         for i, item in enumerate(target_bucket):
             if item == key:
                 target_bucket.pop(i)
-        return False
 
     def contains(self, key: int) -> bool:
         target_bucket = self.buckets[self.hash_func(key)]
