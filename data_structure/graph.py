@@ -56,3 +56,19 @@ def graph_bfs(graph: GraphAdjMat, start: int):
                 queue.append(adj_vet)
                 visited.add(adj_vet)
     return res
+
+
+def dfs_helper(graph: GraphAdjMat, vet, visited, res):
+    res.append(vet)
+    visited.add(vet)
+    for adj_vet in graph.adj_mat[vet]:
+        if adj_vet in visited:
+            continue
+        dfs_helper(graph, adj_vet, visited, res)
+
+
+def graph_dfs(graph: GraphAdjMat, start: int):
+    res = []
+    visited = set()
+    dfs_helper(graph, start, visited, res)
+    return res
