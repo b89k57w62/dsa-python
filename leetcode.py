@@ -1031,11 +1031,9 @@ class Solution:
             return False
         que = deque()
         que.append(root)
-        res = []
         first_none = False
         while que:
             node = que.popleft()
-            res.append(res)
             if node is None:
                 first_none = True
             else:
