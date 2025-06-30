@@ -1071,3 +1071,15 @@ class CBTInserter:
 
     def get_root(self) -> Optional[TreeNode]:
         return self.root
+
+
+# leetcode medium 230. Kth Smallest Element in a BST
+class Solution:
+    def kthSmallest(self, root: Optional[TreeNode], k: int) -> int:
+        dfs_in_order = self.in_order(root)
+        return dfs_in_order[k - 1]
+
+    def in_order(self, root):
+        if not root:
+            return []
+        return self.in_order(root.left) + [root.val] + self.in_order(root.right)
