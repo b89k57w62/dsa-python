@@ -932,7 +932,6 @@ class Solution:
     def helper(self, node, low, high):
         if node is None:
             return True
-        node.val
         if node.val <= low or node.val >= high:
             return False
         return self.helper(node.left, low, node.val) and self.helper(
@@ -1117,3 +1116,28 @@ class Solution:
             root.val = temp.val
             root.right = self.deleteNode(root.right, temp.val)
         return root
+
+
+# leetcode medium 1382. Balance a Binary Search Tree
+class Solution:
+    def balanceBST(self, root: Optional[TreeNode]) -> Optional[TreeNode]:
+        nodes = []
+        self.inorder(root, nodes)
+        return self.build(nodes, 0, len(nodes) - 1)
+
+    def inorder(self, root, res):
+        if not root:
+            return None
+        self.inorder(root.left, res)
+        res.append(root)
+        self.inorder(root.right, res)
+        return res
+
+    def build(self, res, lo, hi):
+        if lo > hi:
+            return
+        mid = (lo + hi) // 2
+        mid_node = res[mid]
+        mid_node.left = self.build(res, lo, mid - 1)
+        mid_node.right = self.build(res, mid + 1, hi)
+        return mid_node
