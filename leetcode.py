@@ -1,6 +1,7 @@
 from typing import List, Optional
 from collections import deque
 import operator
+from data_structure.basic_array_list import ListNode
 
 
 # leetcode easy 88. Merge Sorted Array
@@ -1141,3 +1142,30 @@ class Solution:
         mid_node.left = self.build(res, lo, mid - 1)
         mid_node.right = self.build(res, mid + 1, hi)
         return mid_node
+
+
+# leetcode medium 109. Convert Sorted List to Binary Search Tree
+class Solution:
+    def __init__(self):
+        self.head = None
+
+    def sortedListToBST(self, head: Optional[ListNode]) -> Optional[TreeNode]:
+        length = 0
+        cur = head
+        while cur:
+            length += 1
+            cur = cur.next
+        self.head = head
+        return self.build(0, length)
+
+    def build(self, lo, hi):
+        if lo >= hi:
+            return
+        mid = (lo + hi) // 2
+        left = self.build(lo, mid)
+        root = TreeNode(self.head.val)
+        root.left = left
+        self.head = self.head.next
+        right = self.build(mid + 1, hi)
+        root.right = right
+        return root
