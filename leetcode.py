@@ -1,6 +1,7 @@
 from typing import List, Optional
 from collections import deque
 import operator
+import heapq
 from data_structure.basic_array_list import ListNode
 
 
@@ -1196,3 +1197,15 @@ class Solution:
         else:
             merged.extend(right[j:])
         return merged
+
+
+class Solution:
+    def lastStoneWeight(self, stones: List[int]) -> int:
+        max_heap = [-num for num in stones]
+        heapq.heapify(max_heap)
+        while len(max_heap) > 1:
+            first_num = -heapq.heappop(max_heap)
+            second_num = -heapq.heappop(max_heap)
+            if first_num != second_num:
+                heapq.heappush(max_heap, -(first_num - second_num))
+        return -max_heap[0] if max_heap else 0
