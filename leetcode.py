@@ -1199,6 +1199,7 @@ class Solution:
         return merged
 
 
+# leetcode easy 1046. Last Stone Weight
 class Solution:
     def lastStoneWeight(self, stones: List[int]) -> int:
         max_heap = [-num for num in stones]
