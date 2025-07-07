@@ -1238,3 +1238,15 @@ class KthLargest:
         elif val > self.heap[0]:
             heapq.heapreplace(self.heap, val)
         return self.heap[0]
+
+
+# leetcode medium 973. K Closest Points to Origin
+class Solution:
+    def kClosest(self, points: List[List[int]], k: int) -> List[List[int]]:
+        heap = []
+        for x, y in points:
+            distance = x * x + y * y
+            heapq.heappush(heap, (-distance, [x, y]))
+            if len(heap) > k:
+                heapq.heappop(heap)
+        return [points for distance, points in heap]
