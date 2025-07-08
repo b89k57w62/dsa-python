@@ -5,6 +5,12 @@ import heapq
 from data_structure.basic_array_list import ListNode
 
 
+class Node:
+    def __init__(self, val=0, neighbors=None):
+        self.val = val
+        self.neighbors = neighbors if neighbors is not None else []
+
+
 # leetcode easy 88. Merge Sorted Array
 class Solution(object):
     def merge(self, nums1: list, m: int, nums2: list, n: int, solutions: str):
@@ -1250,3 +1256,21 @@ class Solution:
             if len(heap) > k:
                 heapq.heappop(heap)
         return [points for distance, points in heap]
+
+
+# leetcode medium 133. Clone Graph
+class Solution:
+    def cloneGraph(self, node: Optional["Node"]) -> Optional["Node"]:
+        if not node:
+            return None
+        copy = {}
+        return self.dfs(copy, node)
+
+    def dfs(self, hash, cur: "Node"):
+        if cur in hash:
+            return hash[cur]
+        clone_node = Node(cur.val)
+        hash[cur] = clone_node
+        for neighbor in cur.neighbors:
+            clone_node.neighbors.append(self.dfs(hash, neighbor))
+        return clone_node
