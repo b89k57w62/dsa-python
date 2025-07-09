@@ -1274,3 +1274,30 @@ class Solution:
         for neighbor in cur.neighbors:
             clone_node.neighbors.append(self.dfs(hash, neighbor))
         return clone_node
+
+
+# leetcode medium 207. Course Schedule
+class Solution:
+    def canFinish(self, numCourses: int, prerequisites: List[List[int]]) -> bool:
+        adjacency_list = [[] for _ in range(numCourses)]
+        visited_state = [0] * numCourses
+        for course, prerequisite in prerequisites:
+            adjacency_list[prerequisite].append(course)
+
+        for course in range(numCourses):
+            if visited_state[course] == 0:
+                if self.has_cycle(visited_state, adjacency_list, course):
+                    return False
+        return True
+
+    def has_cycle(self, visited_state, adjacency_list, current_course):
+        if visited_state[current_course] == 1:
+            return True
+        elif visited_state[current_course] == 2:
+            return False
+        visited_state[current_course] = 1
+        for next_course in adjacency_list[current_course]:
+            if self.has_cycle(visited_state, adjacency_list, next_course):
+                return True
+        visited_state[current_course] = 2
+        return False
