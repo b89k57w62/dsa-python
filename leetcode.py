@@ -819,9 +819,8 @@ class MyHashSet:
 
     def contains(self, key: int) -> bool:
         target_bucket = self.buckets[self.hash_func(key)]
-        for item in target_bucket:
-            if item == key:
-                return True
+        if key in target_bucket:
+            return True
         return False
 
 
