@@ -1300,3 +1300,32 @@ class Solution:
                 return True
         visited_state[current_course] = 2
         return False
+
+
+# leetcode medium 210. Course Schedule II
+class Solution:
+    def findOrder(self, numCourses: int, prerequisites: List[List[int]]) -> List[int]:
+        adjacency_list = [[] for _ in range(numCourses)]
+        visted_state = [0] * numCourses
+        order = []
+        for course, prerequisite in prerequisites:
+            adjacency_list[prerequisite].append(course)
+
+        for course in range(numCourses):
+            if visted_state[course] == 0:
+                if self.has_cycle(visted_state, adjacency_list, course, order):
+                    return []
+        return order[::-1]
+
+    def has_cycle(self, visted_state, adjacency_list, current_course, order):
+        if visted_state[current_course] == 1:
+            return True
+        elif visted_state[current_course] == 2:
+            return False
+        visted_state[current_course] = 1
+        for next_course in adjacency_list[current_course]:
+            if self.has_cycle(visted_state, adjacency_list, next_course, order):
+                return True
+        visted_state[current_course] = 2
+        order.append(current_course)
+        return False
