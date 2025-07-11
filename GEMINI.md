@@ -11,3 +11,4 @@
 - Use `git diff` or `git diff --staged` to check the differences before generating a commit message.
 
 - All `git commit` messages must follow the project’s established commit-message style; use `git log` to check previous commits for reference.
+

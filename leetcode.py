@@ -1329,3 +1329,29 @@ class Solution:
         visted_state[current_course] = 2
         order.append(current_course)
         return False
+
+
+# leetcode medium 200. Number of Islands
+class Solution:
+    def numIslands(self, grid: List[List[str]]) -> int:
+        if not grid:
+            return 0
+        rows, cols = len(grid), len(grid[0])
+        islands_counts = 0
+        for row in range(rows):
+            for col in range(cols):
+                if grid[row][col] == "1":
+                    islands_counts += 1
+                    self.dfs(grid, row, col)
+        return islands_counts
+
+    def dfs(self, grid, row, col):
+        rows, cols = len(grid), len(grid[0])
+        if not (0 <= row < rows and 0 <= col < cols and grid[row][col] == "1"):
+            return
+
+        grid[row][col] = "0"
+        self.dfs(grid, row + 1, col)
+        self.dfs(grid, row - 1, col)
+        self.dfs(grid, row, col + 1)
+        self.dfs(grid, row, col - 1)
