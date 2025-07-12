@@ -1356,3 +1356,35 @@ class Solution:
         self.dfs(grid, row - 1, col)
         self.dfs(grid, row, col + 1)
         self.dfs(grid, row, col - 1)
+
+
+# leetcode medium 310. Minimum Height Trees
+class Solution:
+    def findMinHeightTrees(self, n: int, edges: List[List[int]]) -> List[int]:
+        if n == 1:
+            return [0]
+        adjacency_list = [set() for _ in range(n)]
+        degrees = [0] * n
+        for node_1, node_2 in edges:
+            adjacency_list[node_1].add(node_2)
+            adjacency_list[node_2].add(node_1)
+            degrees[node_1] += 1
+            degrees[node_2] += 1
+        queue = deque()
+        for i in range(n):
+            if degrees[i] == 1:
+                queue.append(i)
+
+        remaining_nodes = n
+        while remaining_nodes > 2:
+            level_size = len(queue)
+            remaining_nodes -= level_size
+
+            for i in range(level_size):
+                leaf = queue.popleft()
+
+                for neighbor in adjacency_list[leaf]:
+                    degrees[neighbor] -= 1
+                    if degrees[neighbor] == 1:
+                        queue.append(neighbor)
+        return list(queue)
