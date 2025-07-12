@@ -1347,10 +1347,11 @@ class Solution:
 
     def dfs(self, grid, row, col):
         rows, cols = len(grid), len(grid[0])
-        if not (0 <= row < rows and 0 <= col < cols and grid[row][col] == "1"):
+        if 0 <= row < rows and 0 <= col < cols and grid[row][col] == "1":
+            grid[row][col] = "0"
+        else:
             return
 
-        grid[row][col] = "0"
         self.dfs(grid, row + 1, col)
         self.dfs(grid, row - 1, col)
         self.dfs(grid, row, col + 1)
