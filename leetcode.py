@@ -1388,3 +1388,24 @@ class Solution:
                     if degrees[neighbor] == 1:
                         queue.append(neighbor)
         return list(queue)
+
+
+# leetcode medium 785. Is Graph Bipartite?
+class Solution:
+    def isBipartite(self, graph: List[List[int]]) -> bool:
+        colors = [0] * len(graph)
+        for i in range(len(graph)):
+            if colors[i] == 0:
+                que = deque()
+                que.append(i)
+                colors[i] = 1
+
+                while que:
+                    node = que.popleft()
+                    for neighbor in graph[node]:
+                        if colors[neighbor] == 0:
+                            colors[neighbor] = -colors[node]
+                            que.append(neighbor)
+                        elif colors[neighbor] == colors[node]:
+                            return False
+        return True
