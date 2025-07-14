@@ -1409,3 +1409,18 @@ class Solution:
                         elif colors[neighbor] == colors[node]:
                             return False
         return True
+
+
+# leetcode easy 704. Binary Search
+class Solution:
+    def search(self, nums: List[int], target: int) -> int:
+        left, right = 0, len(nums) - 1
+        while left <= right:
+            mid_idx = (left + right) // 2
+            if nums[mid_idx] > target:
+                right = mid_idx - 1
+            elif nums[mid_idx] < target:
+                left = mid_idx + 1
+            else:
+                return mid_idx
+        return -1
