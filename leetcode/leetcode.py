@@ -1424,3 +1424,45 @@ class Solution:
             else:
                 return mid_idx
         return -1
+
+
+# leetcode medium 34. Find First and Last Position of Element in Sorted Array
+class Solution:
+    def searchRange(self, nums: List[int], target: int) -> List[int]:
+        res = [-1, -1]
+        left, right = 0, len(nums) - 1
+        left_edge = -1
+        right_edge = -1
+
+        while left <= right:
+            mid = (left + right) // 2
+            if nums[mid] < target:
+                left = mid + 1
+            elif nums[mid] > target:
+                right = mid - 1
+            else:
+                left_edge = mid
+                right = mid - 1
+
+        if left_edge == -1:
+            return res
+        res[0] = left_edge
+
+        left, right = 0, len(nums) - 1
+        right_edge = -1
+
+        while left <= right:
+            mid = (left + right) // 2
+            if nums[mid] < target:
+                left = mid + 1
+            elif nums[mid] > target:
+                right = mid - 1
+            else:
+                right_edge = mid
+                left = mid + 1
+
+        if right_edge == -1:
+            return res
+
+        res[1] = right_edge
+        return res
