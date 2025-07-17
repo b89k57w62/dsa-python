@@ -1466,3 +1466,20 @@ class Solution:
 
         res[1] = right_edge
         return res
+
+
+# leetcode medium 797. All Paths from Source to Target
+class Solution:
+    def allPathsSourceTarget(self, graph: List[List[int]]) -> List[List[int]]:
+        res = []
+        target_node = len(graph) - 1
+        self.dfs(graph, 0, [0], target_node, res)
+        return res
+
+    def dfs(self, graph, current_node, current_path, target_node, res):
+        if current_node == target_node:
+            res.append(list(current_path))
+            return
+
+        for neighbor in graph[current_node]:
+            self.dfs(graph, neighbor, current_path + [neighbor], target_node, res)
