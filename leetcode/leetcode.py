@@ -1483,3 +1483,42 @@ class Solution:
 
         for neighbor in graph[current_node]:
             self.dfs(graph, neighbor, current_path + [neighbor], target_node, res)
+
+
+# leetcode medium 148. Sort List
+class Solution:
+    def sortList(self, head: Optional[ListNode]) -> Optional[ListNode]:
+        if not head or not head.next:
+            return head
+
+        slow, fast = head, head.next
+        while fast and fast.next:
+            slow = slow.next
+            fast = fast.next.next
+
+        right_head = slow.next
+        slow.next = None
+        left_sort = self.sortList(head)
+        right_sort = self.sortList(right_head)
+
+        return self.merge_sort(left_sort, right_sort)
+
+    def merge_sort(self, left, right):
+        temp = ListNode(0)
+        tail = temp
+
+        while left and right:
+            if left.val < right.val:
+                tail.next = left
+                left = left.next
+            else:
+                tail.next = right
+                right = right.next
+
+            tail = tail.next
+
+        if left:
+            tail.next = left
+        if right:
+            tail.next = right
+        return temp.next
