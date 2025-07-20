@@ -1522,3 +1522,25 @@ class Solution:
         if right:
             tail.next = right
         return temp.next
+
+
+# leetcode medium 75. Sort Colors
+class Solution:
+    def sortColors(self, nums: List[int]) -> None:
+        """
+        Do not return anything, modify nums in-place instead.
+        """
+        pointer_0 = 0
+        pointer_2 = len(nums) - 1
+        checking = 0
+
+        while checking <= pointer_2:
+            if nums[checking] == 0:
+                nums[pointer_0], nums[checking] = nums[checking], nums[pointer_0]
+                checking += 1
+                pointer_0 += 1
+            elif nums[checking] == 2:
+                nums[pointer_2], nums[checking] = nums[checking], nums[pointer_2]
+                pointer_2 -= 1
+            else:
+                checking += 1
