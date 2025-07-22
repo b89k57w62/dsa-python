@@ -1562,3 +1562,19 @@ class Solution:
             if counts[i] > 0:
                 res.extend([i] * counts[i])
         return res
+
+
+# leetcode medium 451. Sort Characters By Frequency
+class Solution:
+    def frequencySort(self, s: str) -> str:
+        hash = {}
+        res = []
+        for char in s:
+            if char not in hash:
+                hash[char] = 1
+            else:
+                hash[char] += 1
+        sorted_item = sorted(hash.items(), key=lambda item: item[1], reverse=True)
+        for char, freq in sorted_item:
+            res.append(char * freq)
+        return "".join(res)
