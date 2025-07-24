@@ -2,6 +2,7 @@ from typing import List, Optional
 from collections import deque
 import operator
 import heapq
+import functools
 from data_structure.basic_array_list import ListNode
 
 
@@ -1578,3 +1579,23 @@ class Solution:
         for char, freq in sorted_item:
             res.append(char * freq)
         return "".join(res)
+
+
+# leetcode medium 179. Largest Number
+class Solution:
+    def largestNumber(self, nums: List[int]) -> str:
+        strs = [str(num) for num in nums]
+        strs.sort(key=functools.cmp_to_key(self.compare))
+        res = "".join(strs)
+        if res[0] == "0":
+            return "0"
+        else:
+            return res
+
+    def compare(self, s1, s2):
+        if s1 + s2 > s2 + s1:
+            return -1
+        elif s1 + s2 < s2 + s1:
+            return 1
+        else:
+            return 0
