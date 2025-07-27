@@ -1665,3 +1665,22 @@ class Solution:
                 init_position = points[i][1]
 
         return counter
+
+
+# leetcode medium 238. Product of Array Except Self
+class Solution:
+    def productExceptSelf(self, nums: List[int]) -> List[int]:
+        length = len(nums)
+        left_arr = [1] * length
+        for i in range(1, length):
+            left_arr[i] = left_arr[i - 1] * nums[i - 1]
+
+        right_arr = [1] * length
+        for i in range(length - 2, -1, -1):
+            right_arr[i] = right_arr[i + 1] * nums[i + 1]
+
+        answer = [1] * length
+        for i in range(length):
+            answer[i] = left_arr[i] * right_arr[i]
+
+        return answer
