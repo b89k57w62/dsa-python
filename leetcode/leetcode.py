@@ -1,5 +1,5 @@
 from typing import List, Optional
-from collections import deque
+from collections import deque, defaultdict
 import operator
 import heapq
 import functools
@@ -1684,3 +1684,26 @@ class Solution:
             answer[i] = left_arr[i] * right_arr[i]
 
         return answer
+
+
+# leetcode medium 36. Valid Sudoku
+class Solution:
+    def isValidSudoku(self, board: List[List[str]]) -> bool:
+        rows = defaultdict(set)
+        cols = defaultdict(set)
+        boxes = defaultdict(set)
+
+        for row in range(9):
+            for col in range(9):
+                num = board[row][col]
+                if num == ".":
+                    continue
+                box_key = (row // 3, col // 3)
+
+                if num in rows[row] or num in cols[col] or num in boxes[box_key]:
+                    return False
+
+                rows[row].add(num)
+                cols[col].add(num)
+                boxes[box_key].add(num)
+        return True
