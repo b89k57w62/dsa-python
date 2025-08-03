@@ -36,11 +36,8 @@ class ClimbingStairsSolver:
             Number of distinct ways to climb n stairs
         """
         # Base cases
-        if n == 1:
-            return 1
-        if n == 2:
-            return 2
-
+        if n == 1 or n == 2:
+            return n
         # Check if already computed
         if self.mem[n] != 0:
             return self.mem[n]
@@ -63,3 +60,23 @@ def climbing_stairs_mem(n: int) -> int:
     """
     solver = ClimbingStairsSolver(n)
     return solver.solve()
+
+
+def climbing_stairs_dp(n: int):
+    if n == 1 or n == 2:
+        return n
+    dp = [0] * (n + 1)
+    dp[1] = 1
+    dp[2] = 2
+    for i in range(3, n + 1):
+        dp[i] = dp[i - 1] + dp[i - 2]
+    return dp[n]
+
+
+def climbing_stairs_dp_rolling_var(n: int):
+    if n == 1 or n == 2:
+        return n
+    a, b = 1, 2
+    for _ in range(3, n + 1):
+        a, b = b, a + b
+    return b
