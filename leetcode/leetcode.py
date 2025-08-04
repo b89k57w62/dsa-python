@@ -1726,3 +1726,27 @@ class Solution:
 
                 longest_streak = max(longest_streak, current_streak)
         return longest_streak
+
+
+# leetcode medium 271. Encode and Decode Strings
+class Solution:
+    def encode(self, strs: List[str]) -> str:
+        encode_strings = []
+        for s in strs:
+            encode_strings.append(f"{len(s)}#{s}")
+        return "".join(encode_strings)
+
+    def decode(self, s: str) -> List[str]:
+        decode_strings = []
+        idx = 0
+        while idx < len(s):
+            j = idx
+            while s[j] != "#":
+                j += 1
+            length = int(s[idx:j])
+            start_of_str = j + 1
+            end_of_str = start_of_str + length
+            origin_str = s[start_of_str:end_of_str]
+            decode_strings.append(origin_str)
+            idx = end_of_str
+        return decode_strings
