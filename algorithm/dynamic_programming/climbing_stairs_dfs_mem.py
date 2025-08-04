@@ -63,6 +63,11 @@ def climbing_stairs_mem(n: int) -> int:
 
 
 def climbing_stairs_dp(n: int):
+    """
+    climbing stairs problem solver using dynamic programming.
+    time complexity: O(n)
+    space complexity: O(n)
+    """
     if n == 1 or n == 2:
         return n
     dp = [0] * (n + 1)
@@ -74,9 +79,44 @@ def climbing_stairs_dp(n: int):
 
 
 def climbing_stairs_dp_rolling_var(n: int):
+    """
+    climbing stairs problem solver using dynamic programming with rolling variables.
+    time complexity: O(n)
+    space complexity: O(1)
+    """
     if n == 1 or n == 2:
         return n
     a, b = 1, 2
     for _ in range(3, n + 1):
         a, b = b, a + b
     return b
+
+
+def min_cost_climbing_stairs_dp(cost: list[int]):
+    """
+    min cost climbing stairs problem solver using dynamic programming.
+    time complexity: O(n)
+    space complexity: O(n)
+    """
+    n = len(cost)
+    dp = [0] * (n + 1)
+    dp[0] = cost[0]
+    dp[1] = cost[1]
+    for i in range(2, n):
+        dp[i] = min(dp[i - 1], dp[i - 2]) + cost[i]
+    return dp[n]
+
+
+def min_cost_climbing_stairs_dp_rolling_var(cost: list[int]):
+    """
+    min cost climbing stairs problem solver using dynamic programming with rolling variables.
+    time complexity: O(n)
+    space complexity: O(1)
+    """
+    n = len(cost) - 1
+    if n == 1 or n == 2:
+        return cost[n]
+    a, b = cost[0], cost[1]
+    for i in range(3, n + 1):
+        a, b = b, min(a, b) + cost[i]
+    return min(a, b)
