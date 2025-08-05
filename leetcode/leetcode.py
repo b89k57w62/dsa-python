@@ -440,29 +440,19 @@ class Solution(object):
 # leetcode easy 1. Two Sum
 class Solution(object):
     def twoSum(self, nums, target):
-        """
-        :type nums: List[int]
-        :type target: int
-        :rtype: List[int]
-        """
-        storage = {}
+        seen = {}
         for idx, num in enumerate(nums):
-            temp = target - num
-            if temp in storage:
-                return [idx, storage[temp]]
-            storage[num] = idx
+            if target - num in seen:
+                return [idx, seen[target - num]]
+            seen[num] = idx
 
 
 # leetcode easy 202. Happy Number
 class Solution(object):
     def isHappy(self, n):
-        """
-        :type n: int
-        :rtype: bool
-        """
-        seen = set()
+        seen = {}
         while n != 1 and n not in seen:
-            seen.add(n)
+            seen[n] = n
             n = sum([int(num) ** 2 for num in str(n)])
         return n == 1
 
@@ -1750,3 +1740,18 @@ class Solution:
             decode_strings.append(origin_str)
             idx = end_of_str
         return decode_strings
+
+
+# leetcode easy 35. Search Insert Position
+class Solution:
+    def searchInsert(self, nums: List[int], target: int) -> int:
+        left, right = 0, len(nums) - 1
+        while left <= right:
+            mid_idx = (left + right) // 2
+            if target < nums[mid_idx]:
+                right = mid_idx - 1
+            elif target > nums[mid_idx]:
+                left = mid_idx + 1
+            else:
+                return mid_idx
+        return left
