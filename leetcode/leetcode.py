@@ -1423,7 +1423,6 @@ class Solution:
         res = [-1, -1]
         left, right = 0, len(nums) - 1
         left_edge = -1
-        right_edge = -1
 
         while left <= right:
             mid = (left + right) // 2
