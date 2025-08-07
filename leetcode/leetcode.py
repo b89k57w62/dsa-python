@@ -1755,6 +1755,7 @@ class Solution:
                 return mid_idx
         return left
 
+
 # leetcode medium 322. Coin Change
 class Solution:
     def coinChange(self, coins: List[int], amount: int) -> int:
@@ -1767,3 +1768,25 @@ class Solution:
                 if i >= coin:
                     dp[i] = min(dp[i], dp[i - coin] + 1)
         return dp[amount] if dp[amount] != float("inf") else -1
+
+
+# leetcode easy 125. Valid Palindrome
+class Solution:
+    def isPalindrome(self, s: str) -> bool:
+        left_pointer, right_pointer = 0, len(s) - 1
+        while left_pointer <= right_pointer:
+            if not s[left_pointer].isalnum():
+                left_pointer += 1
+                continue
+
+            if not s[right_pointer].isalnum():
+                right_pointer -= 1
+                continue
+
+            if s[left_pointer].lower() != s[right_pointer].lower():
+                return False
+
+            left_pointer += 1
+            right_pointer -= 1
+
+        return True
