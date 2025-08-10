@@ -1805,3 +1805,20 @@ class Solution:
                 left_pointer += 1
             else:
                 right_pointer -= 1
+
+
+# leetcode medium 11. Container With Most Water
+class Solution:
+    def maxArea(self, height: List[int]) -> int:
+        left_idx, right_idx = 0, len(height) - 1
+        max_area = 0
+        while left_idx < right_idx:
+            current_area = (right_idx - left_idx) * min(
+                height[left_idx], height[right_idx]
+            )
+            max_area = max(max_area, current_area)
+            if height[left_idx] < height[right_idx]:
+                left_idx += 1
+            else:
+                right_idx -= 1
+        return max_area
