@@ -1,4 +1,8 @@
 class MyList:
+    """
+    ADT(abstract data type): array list is a dynamic array that can grow and shrink as needed.
+    """
+
     def __init__(self):
         self._capacity = 10
         self._size = 0
@@ -25,6 +29,22 @@ class MyList:
         if self._size == self._capacity:
             self._extend_capacity()
         self._arr[self._size] = num
+        self._size += 1
+
+    def remove(self, index: int):
+        if index < 0 or index >= self._size:
+            raise IndexError("Index out of range")
+        num = self._arr[index]
+        for i in range(index, self._size - 1):
+            self._arr[i] = self._arr[i + 1]
+        self._size -= 1
+
+    def insert(self, index: int, num: int):
+        if index < 0 or self._size == self._capacity:
+            raise IndexError("Index out of range")
+        for i in range(self._size - 1, index - 1, -1):
+            self._arr[i + 1] = self._arr[i]
+        self._arr[index] = num
         self._size += 1
 
     def extend_capacity(self):
