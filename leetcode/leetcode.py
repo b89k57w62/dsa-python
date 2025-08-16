@@ -1290,7 +1290,6 @@ class Solution:
             if self.has_cycle(visited_state, adjacency_list, next_course):
                 return True
         visited_state[current_course] = 2
-        return False
 
 
 # leetcode medium 210. Course Schedule II
