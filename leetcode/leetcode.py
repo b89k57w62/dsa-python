@@ -1818,3 +1818,18 @@ class Solution:
             else:
                 right_idx -= 1
         return max_area
+
+
+# leetcode medium 739. Daily Temperatures
+class Solution:
+    def dailyTemperatures(self, temperatures: List[int]) -> List[int]:
+        n = len(temperatures)
+        ans = [0] * n
+        stack = []
+        for idx, temp in enumerate(temperatures):
+            while stack and temp > temperatures[stack[-1]]:
+                pre_idx = stack.pop()
+                ans[pre_idx] = idx - pre_idx
+
+            stack.append(idx)
+        return ans
