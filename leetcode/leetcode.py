@@ -1833,3 +1833,21 @@ class Solution:
 
             stack.append(idx)
         return ans
+
+
+# leetcode medium 22. Generate Parentheses
+class Solution:
+    def generateParenthesis(self, n: int) -> List[str]:
+        res = []
+        self._backtrack("", 0, 0, res, n)
+        return res
+
+    def _backtrack(self, current_str, open_count, close_count, res, n):
+        if len(current_str) == 2 * n:
+            res.append(current_str)
+            return
+
+        if open_count < n:
+            self._backtrack(current_str + "(", open_count + 1, close_count, res, n)
+        if close_count < open_count:
+            self._backtrack(current_str + ")", open_count, close_count + 1, res, n)
