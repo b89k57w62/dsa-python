@@ -774,14 +774,16 @@ class Solution:
 # leetcode medium 560. Subarray Sum Equals K
 class Solution:
     def subarraySum(self, nums: List[int], k: int) -> int:
-        hash = {0: 1}
-        prefix = 0
+        past_prefix_sum_count = {0: 1}
+        current_prefix_sum = 0
         res = 0
         for num in nums:
-            prefix += num
-            need = prefix - k
-            res += hash.get(need, 0)
-            hash[prefix] = hash.get(prefix, 0) + 1
+            current_prefix_sum += num
+            past_prefix_sum = current_prefix_sum - k
+            res += past_prefix_sum_count.get(past_prefix_sum, 0)
+            past_prefix_sum_count[current_prefix_sum] = (
+                past_prefix_sum_count.get(current_prefix_sum, 0) + 1
+            )
         return res
 
 
