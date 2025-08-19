@@ -1850,3 +1850,21 @@ class Solution:
             self._backtrack(current_str + "(", open_count + 1, close_count, res, n)
         if close_count < open_count:
             self._backtrack(current_str + ")", open_count, close_count + 1, res, n)
+
+
+# leetcode medium 853. Car Fleet
+class Solution:
+    def carFleet(self, target: int, position: List[int], speed: List[int]) -> int:
+        car_fleets = 0
+        lead_time = 0
+        cars = []
+        for i, j in zip(position, speed):
+            time_arrivial = (target - i) / j
+            cars.append((i, time_arrivial))
+        cars.sort(reverse=True)
+
+        for _, time in cars:
+            if time > lead_time:
+                lead_time = time
+                car_fleets += 1
+        return car_fleets
