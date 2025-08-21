@@ -1870,3 +1870,23 @@ class Solution:
                 lead_time = time
                 car_fleets += 1
         return car_fleets
+
+
+# leetcode medium 74. Search a 2D Matrix
+class Solution:
+    def searchMatrix(self, matrix: List[List[int]], target: int) -> bool:
+        rows = len(matrix)
+        cols = len(matrix[0])
+        left, right = 0, rows * cols - 1
+
+        while left <= right:
+            mid_idx = (left + right) // 2
+            row_idx = mid_idx // cols
+            col_idx = mid_idx % cols
+            if matrix[row_idx][col_idx] > target:
+                right = mid_idx - 1
+            elif matrix[row_idx][col_idx] < target:
+                left = mid_idx + 1
+            else:
+                return True
+        return False
