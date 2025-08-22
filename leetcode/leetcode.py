@@ -3,6 +3,7 @@ from collections import deque, defaultdict
 import operator
 import heapq
 import functools
+import math
 from data_structure.basic_array_list import ListNode
 
 
@@ -1890,3 +1891,21 @@ class Solution:
             else:
                 return True
         return False
+
+
+# leetcode medium 875. Koko Eating Bananas
+class Solution:
+    def minEatingSpeed(self, piles: List[int], h: int) -> int:
+        min_speed, max_speed = 1, max(piles)
+        res = max_speed
+        while min_speed < max_speed:
+            mid_speed = (min_speed + max_speed) // 2
+            hours_needed = 0
+            for pile in piles:
+                hours_needed += math.ceil(pile / mid_speed)
+            if hours_needed <= h:
+                res = mid_speed
+                max_speed = mid_speed - 1
+            else:
+                min_speed = mid_speed + 1
+        return res
