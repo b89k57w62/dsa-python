@@ -1892,16 +1892,16 @@ class Solution:
 # leetcode medium 875. Koko Eating Bananas
 class Solution:
     def minEatingSpeed(self, piles: List[int], h: int) -> int:
-        min_speed, max_speed = 1, max(piles)
-        res = max_speed
-        while min_speed < max_speed:
-            mid_speed = (min_speed + max_speed) // 2
+        min_rate, max_rate = 1, max(piles)
+        res = max_rate
+        while min_rate < max_rate:
+            avg_rate = (min_rate + max_rate) // 2
             hours_needed = 0
             for pile in piles:
-                hours_needed += math.ceil(pile / mid_speed)
+                hours_needed += math.ceil(pile / avg_rate)
             if hours_needed <= h:
-                res = mid_speed
-                max_speed = mid_speed - 1
+                res = avg_rate
+                max_rate = avg_rate
             else:
-                min_speed = mid_speed + 1
+                min_rate = avg_rate + 1
         return res
