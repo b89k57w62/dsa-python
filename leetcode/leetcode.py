@@ -5,6 +5,7 @@ import heapq
 import functools
 import math
 from data_structure.basic_array_list import ListNode
+from utils.tree_node import TreeNode
 
 
 class Node:
@@ -865,11 +866,6 @@ class Solution:
 
 
 # leetcode easy 100. Same Tree
-class TreeNode:
-    def __init__(self, val=0, left=None, right=None):
-        self.val = val
-        self.left = left
-        self.right = right
 
 
 class Solution:

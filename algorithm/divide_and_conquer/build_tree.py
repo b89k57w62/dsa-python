@@ -1,3 +1,6 @@
+from utils.tree_node import TreeNode
+
+
 class TreeBuilder:
     """
     Time complexity: O(n)
@@ -47,14 +50,3 @@ class TreeBuilder:
             preorder, inorder_map, pre_start + 1 + mid - in_start, mid + 1, in_end
         )
         return root
-
-
-class TreeNode:
-    """
-    Binary tree node representation.
-    """
-
-    def __init__(self, val=0, left=None, right=None):
-        self.val = val
-        self.left = left
-        self.right = right
