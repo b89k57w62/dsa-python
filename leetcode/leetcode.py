@@ -1918,3 +1918,24 @@ class Solution:
             else:
                 right = mid
         return nums[left]
+
+
+# leetcode medium 33. Search in Rotated Sorted Array
+class Solution:
+    def search(self, nums: List[int], target: int) -> int:
+        left_idx, right_idx = 0, len(nums) - 1
+        while left_idx <= right_idx:
+            mid_idx = (left_idx + right_idx) // 2
+            if nums[mid_idx] == target:
+                return mid_idx
+            elif nums[mid_idx] < nums[right_idx]:
+                if nums[mid_idx] <= target <= nums[right_idx]:
+                    left_idx = mid_idx + 1
+                else:
+                    right_idx = mid_idx - 1
+            else:
+                if nums[left_idx] <= target < nums[mid_idx]:
+                    right_idx = mid_idx - 1
+                else:
+                    left_idx = mid_idx + 1
+        return -1
