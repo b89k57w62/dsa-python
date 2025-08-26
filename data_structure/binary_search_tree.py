@@ -3,68 +3,62 @@ from utils.tree_node import TreeNode
 
 class BinarySearchTree:
     def __init__(self):
-        self.root = None
+        self.root = None | TreeNode
 
     def search(self, num):
-        cur = self.root
-        while cur is not None:
-            if cur.val < num:
-                cur = cur.right
-            elif cur.val > num:
-                cur = cur.left
+        current_node = self.root
+        while current_node is not None:
+            if current_node.val == num:
+                return current_node
+            elif current_node.val < num:
+                current_node = current_node.right
             else:
-                break
-        return cur
+                current_node = current_node.left
+        return current_node
 
     def insert(self, num):
         if self.root is None:
             self.root = TreeNode(num)
             return
-
-        cur, pre = self.root, None
-        while cur is not None:
-            if cur.val == num:
-                return
-            pre = cur
-
-            if cur.val < num:
-                cur = cur.right
+        current_node, previous_node = self.root, None
+        while current_node is not None:
+            previous_node = current_node
+            if current_node.val < num:
+                current_node = current_node.right
             else:
-                cur = cur.left
-        if pre.val < num:
-            pre.right = TreeNode(num)
+                current_node = current_node.left
+        node = TreeNode(num)
+        if previous_node.val < num:
+            previous_node.right = node
         else:
-            pre.left = TreeNode(num)
+            previous_node.left = node
 
     def remove(self, num):
         if self.root is None:
             return
-
-        cur, pre = self.root, None
-
-        while cur is not None:
-            if cur.val == num:
+        current_node, previous_node = self.root, None
+        while current_node is not None:
+            if current_node.val == num:
                 break
-            pre = cur
-            if cur.val < num:
-                cur = cur.right
+            previous_node = current_node
+            if current_node.val < num:
+                current_node = current_node.right
             else:
-                cur = cur.left
-        if cur is None:
+                current_node = current_node.left
+        if current_node is None:
             return
 
-        if cur.left is None or cur.right is None:
-            child = cur.left or cur.right
-            if cur != self.root:
-                if pre.left == cur:
-                    pre.left = child
-                else:
-                    pre.right = child
+        if current_node.left is None and current_node.right is None:
+            child = current_node.left or current_node.right
+            if previous_node.left == current_node:
+                previous_node.left = child
+            elif previous_node.right == current_node:
+                previous_node.right = child
             else:
                 self.root = child
         else:
-            temp = cur.right
-            while temp.left is not None:
-                temp = temp.left
-            self.remove(temp.val)
-            cur.val = temp.val
+            tmp = current_node.right
+            while tmp.left is not None:
+                tmp = tmp.left
+            self.remove(tmp.val)
+            current_node.val = tmp.val

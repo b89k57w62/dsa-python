@@ -4,8 +4,8 @@ import operator
 import heapq
 import functools
 import math
-from data_structure.basic_array_list import ListNode
 from utils.tree_node import TreeNode
+from utils.list_node import ListNode
 
 
 class Node:

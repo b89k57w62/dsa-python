@@ -1,14 +1,4 @@
-class ListNode:
-    def __init__(self, val):
-        """
-        節點類別的建構函式。
-
-        Args:
-            val: 節點儲存的值。
-        """
-        self.val = val  # 節點的值
-        self.next = None  # 指向下一個節點的指標 (初始為 None)
-        self.prev = None  # 指向上一個節點的指標 (初始為 None)
+from utils.list_node import ListNode
 
 
 class LinkedListDeque:
@@ -16,9 +6,9 @@ class LinkedListDeque:
         """
         雙向鏈結串列佇列的建構函式。
         """
-        self._front = None  # 佇列前端的節點 (初始為 None)
-        self._back = None  # 佇列後端的節點 (初始為 None)
-        self._size = 0  # 佇列的大小 (初始為 0)
+        self._front = None
+        self._back = None
+        self._size = 0
 
     def size(self):
         """
