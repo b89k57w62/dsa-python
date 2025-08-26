@@ -1939,3 +1939,30 @@ class Solution:
                 else:
                     left_idx = mid_idx + 1
         return -1
+
+
+# leetcode medium 981. Time Based Key-Value Store
+class TimeMap:
+    def __init__(self):
+        self.bucket = {}
+
+    def set(self, key: str, value: str, timestamp: int) -> None:
+        if key not in self.bucket:
+            self.bucket[key] = []
+        self.bucket[key].append([value, timestamp])
+
+    def get(self, key: str, timestamp: int) -> str:
+        if key not in self.bucket:
+            return ""
+        res = ""
+        values = self.bucket[key]
+        left_idx, right_idx = 0, len(values) - 1
+        while left_idx <= right_idx:
+            mid_idx = (left_idx + right_idx) // 2
+            mid_value, mid_timestamp = values[mid_idx]
+            if mid_timestamp <= timestamp:
+                res = mid_value
+                left_idx = mid_idx + 1
+            else:
+                right_idx = mid_idx - 1
+        return res
