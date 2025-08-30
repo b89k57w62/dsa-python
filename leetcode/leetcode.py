@@ -1966,3 +1966,18 @@ class TimeMap:
             else:
                 right_idx = mid_idx - 1
         return res
+
+
+# leetcode medium 3. Longest Substring Without Repeating Characters
+class Solution:
+    def lengthOfLongestSubstring(self, s: str) -> int:
+        bucket = {}
+        left = 0
+        max_len = 0
+        for right, char in enumerate(s):
+            if char in bucket and bucket[char] >= left:
+                left = bucket[char] + 1
+
+            bucket[char] = right
+            max_len = max(max_len, (right - left) + 1)
+        return max_len
