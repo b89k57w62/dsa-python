@@ -1999,3 +1999,26 @@ class Solution:
                 left += 1
             max_len = max(max_len, right - left + 1)
         return max_len
+
+
+# leetcode medium 567. Permutation in String
+class Solution:
+    def checkInclusion(self, s1: str, s2: str) -> bool:
+        if len(s1) > len(s2):
+            return False
+
+        s1_map = [0] * 26
+        window_map = [0] * 26
+
+        for i in range(len(s1)):
+            s1_map[ord(s1[i]) - ord("a")] += 1
+            window_map[ord(s2[i]) - ord("a")] += 1
+        if s1_map == window_map:
+            return True
+
+        for i in range(len(s1), len(s2)):
+            window_map[ord(s2[i]) - ord("a")] += 1
+            window_map[ord(s2[i - len(s1)]) - ord("a")] -= 1
+            if s1_map == window_map:
+                return True
+        return False
