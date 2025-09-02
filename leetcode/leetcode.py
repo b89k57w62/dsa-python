@@ -1672,23 +1672,32 @@ class Solution:
 # leetcode medium 36. Valid Sudoku
 class Solution:
     def isValidSudoku(self, board: List[List[str]]) -> bool:
-        rows = defaultdict(set)
-        cols = defaultdict(set)
-        boxes = defaultdict(set)
+        for row in range(9):
+            row_set = set()
+            for col in range(9):
+                if board[row][col] != ".":
+                    if board[row][col] in row_set:
+                        return False
+                    row_set.add(board[row][col])
 
+        for col in range(9):
+            col_set = set()
+            for row in range(9):
+                if board[row][col] != ".":
+                    if board[row][col] in col_set:
+                        return False
+                    col_set.add(board[row][col])
+
+        boxes = {}
         for row in range(9):
             for col in range(9):
-                num = board[row][col]
-                if num == ".":
-                    continue
-                box_key = (row // 3, col // 3)
-
-                if num in rows[row] or num in cols[col] or num in boxes[box_key]:
-                    return False
-
-                rows[row].add(num)
-                cols[col].add(num)
-                boxes[box_key].add(num)
+                box_id = (row // 3, col // 3)
+                if board[row][col] != ".":
+                    if box_id not in boxes:
+                        boxes[box_id] = set()
+                    if board[row][col] in boxes[box_id]:
+                        return False
+                    boxes[box_id].add(board[row][col])
         return True
 
 
