@@ -2031,3 +2031,16 @@ class Solution:
             if s1_map == window_map:
                 return True
         return False
+
+
+# leetcode easy 206. Reverse Linked List
+class Solution:
+    def reverseList(self, head: Optional[ListNode]) -> Optional[ListNode]:
+        prev = None
+        cur = head
+        while cur:
+            next_tmp = cur.next
+            cur.next = prev
+            prev = cur
+            cur = next_tmp
+        return prev
