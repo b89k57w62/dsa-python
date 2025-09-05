@@ -2064,3 +2064,17 @@ class Solution:
 
         curr.next = list1 or list2
         return temp.next
+
+
+# leetcode easy 141. Linked List Cycle
+class Solution:
+    def hasCycle(self, head: Optional[ListNode]) -> bool:
+        if not head or not head.next:
+            return False
+        fast = slow = head
+        while fast and fast.next:
+            fast = fast.next.next
+            slow = slow.next
+            if fast == slow:
+                return True
+        return False
