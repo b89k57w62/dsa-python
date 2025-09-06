@@ -2078,3 +2078,35 @@ class Solution:
             if fast == slow:
                 return True
         return False
+
+
+# leetcode medium 143. Reorder List
+class Solution:
+    def reorderList(self, head: Optional[ListNode]) -> None:
+        """
+        Do not return anything, modify head in-place instead.
+        """
+        if not head and not head.next:
+            return
+        slow = fast = head
+        while fast and fast.next:
+            slow = slow.next
+            fast = fast.next.next
+        second_head = slow.next
+        slow.next = None
+
+        prev = None
+        curr = second_head
+        while curr:
+            temp = curr.next
+            curr.next = prev
+            prev = curr
+            curr = temp
+        first = head
+        second = prev
+        while second:
+            temp1, temp2 = first.next, second.next
+            first.next = second
+            second.next = temp1
+            first = temp1
+            second = temp2
