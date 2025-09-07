@@ -1152,13 +1152,13 @@ class Solution:
             length += 1
             cur = cur.next
         self.head = head
-        return self.build(0, length)
+        return self.build(0, length - 1)
 
     def build(self, lo, hi):
         if lo >= hi:
             return
         mid = (lo + hi) // 2
-        left = self.build(lo, mid)
+        left = self.build(lo, mid - 1)
         root = TreeNode(self.head.val)
         root.left = left
         self.head = self.head.next
@@ -2110,3 +2110,20 @@ class Solution:
             second.next = temp1
             first = temp1
             second = temp2
+
+
+# leetcode medium 19. Remove Nth Node From End of List
+class Solution:
+    def removeNthFromEnd(self, head: Optional[ListNode], n: int) -> Optional[ListNode]:
+        dummy = ListNode(-1)
+        dummy.next = head
+        slow = fast = dummy
+        for i in range(n):
+            if fast and fast.next:
+                fast = fast.next
+        while fast and fast.next:
+            slow = slow.next
+            fast = fast.next
+        next_to_removed_node = slow.next.next
+        slow.next = next_to_removed_node
+        return dummy.next
