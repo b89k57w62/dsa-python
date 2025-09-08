@@ -2127,3 +2127,23 @@ class Solution:
         next_to_removed_node = slow.next.next
         slow.next = next_to_removed_node
         return dummy.next
+
+
+# leetcode medium 138. Copy List with Random Pointer
+class Solution:
+    def copyRandomList(self, head: "Optional[Node]") -> "Optional[Node]":
+        hash_map = {}
+        curr = head
+        while curr is not None:
+            new_node = Node(curr.val)
+            hash_map[curr] = new_node
+            curr = curr.next
+        curr = head
+        while curr is not None:
+            new_node = hash_map[curr]
+            if curr.next is not None:
+                new_node.next = hash_map[curr.next]
+            if curr.random is not None:
+                new_node.random = hash_map[curr.random]
+            curr = curr.next
+        return hash_map.get(head)
