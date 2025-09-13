@@ -1,5 +1,5 @@
 from typing import List, Optional
-from collections import deque, defaultdict
+from collections import deque
 import operator
 import heapq
 import functools
@@ -1466,7 +1466,7 @@ class Solution:
 
     def dfs(self, graph, current_node, current_path, target_node, res):
         if current_node == target_node:
-            res.append(list(current_path))
+            res.append(current_path)
             return
 
         for neighbor in graph[current_node]:
@@ -2189,3 +2189,68 @@ class Solution:
             fast = nums[fast]
 
         return slow
+
+
+# leetcode medium 146. LRU Cache
+class LRUCache:
+    class Node:
+        def __init__(self, key, val):
+            self.key = key
+            self.val = val
+            self.prev = None
+            self.next = None
+
+    def __init__(self, capacity: int):
+        self.capacity = capacity
+        self.cache = {}
+        self.head = Node(0, 0)
+        self.tail = Node(0, 0)
+        self.head.next = self.tail
+        self.tail.prev = self.head
+
+    def _remove(self, node):
+        prev_node = node.prev
+        next_node = node.next
+        prev_node.next = next_node
+        next_node.prev = prev_node
+
+    def _add_to_head(self, node):
+        node.next = self.head.next
+        self.head.next.prev = node
+        self.head.next = node
+        node.prev = self.head
+
+    def get(self, key: int) -> int:
+        if key in self.cache:
+            node = self.cache[key]
+            self._remove(node)
+            self._add_to_head(node)
+            return node.val
+        return -1
+
+    def put(self, key: int, value: int) -> None:
+        if key in self.cache:
+            node = self.cache[key]
+            node.val = value
+            self._remove(node)
+            self._add_to_head(node)
+        else:
+            new_node = Node(key, value)
+            self.cache[key] = new_node
+            self._add_to_head(new_node)
+            if len(self.cache) > self.capacity:
+                lru_node = self.tail.prev
+                self._remove(lru_node)
+                del self.cache[lru_node.key]
+
+
+# leetcode easy 226. Invert Binary Tree
+class Solution:
+    def invertTree(self, root: Optional[TreeNode]) -> Optional[TreeNode]:
+        if not root:
+            return None
+        origin_left = root.left
+        origin_right = root.right
+        root.left = self.invertTree(origin_right)
+        root.right = self.invertTree(origin_left)
+        return root
