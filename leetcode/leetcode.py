@@ -2254,3 +2254,21 @@ class Solution:
         root.left = self.invertTree(origin_right)
         root.right = self.invertTree(origin_left)
         return root
+
+
+# leetcode easy 543. Diameter of Binary Tree
+class Solution:
+    def diameterOfBinaryTree(self, root: Optional[TreeNode]) -> int:
+        self.diameter = 0
+        self._depth(root)
+
+        return self.diameter
+
+    def _depth(self, node):
+        if not node:
+            return 0
+        left_depth = self._depth(node.left)
+        right_depth = self._depth(node.right)
+
+        self.diameter = max(self.diameter, left_depth + right_depth)
+        return 1 + max(left_depth, right_depth)
