@@ -2272,3 +2272,22 @@ class Solution:
 
         self.diameter = max(self.diameter, left_depth + right_depth)
         return 1 + max(left_depth, right_depth)
+
+
+# leetcode easy 572. Subtree of Another Tree
+class Solution:
+    def isSubtree(self, root: Optional[TreeNode], subRoot: Optional[TreeNode]) -> bool:
+        if not root:
+            return False
+        if not subRoot:
+            return True
+        if self._isSameTree(root, subRoot):
+            return True
+        return self.isSubtree(root.left, subRoot) or self.isSubtree(root.right, subRoot)
+
+    def _isSameTree(self, p: Optional[TreeNode], q: Optional[TreeNode]):
+        if not p and not q:
+            return True
+        if not p or not q or p.val != q.val:
+            return False
+        return self._isSameTree(p.left, q.left) and self._isSameTree(p.right, q.right)
