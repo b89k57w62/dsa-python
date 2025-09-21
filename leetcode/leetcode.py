@@ -2291,3 +2291,16 @@ class Solution:
         if not p or not q or p.val != q.val:
             return False
         return self._isSameTree(p.left, q.left) and self._isSameTree(p.right, q.right)
+
+
+# leetcode medium 235. Lowest Common Ancestor of a Binary Search Tree
+class Solution:
+    def lowestCommonAncestor(
+        self, root: "TreeNode", p: "TreeNode", q: "TreeNode"
+    ) -> "TreeNode":
+        if p.val > root.val and q.val > root.val:
+            return self.lowestCommonAncestor(root.right, p, q)
+        elif p.val < root.val and q.val < root.val:
+            return self.lowestCommonAncestor(root.left, p, q)
+        else:
+            return root
