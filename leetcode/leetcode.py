@@ -2324,3 +2324,21 @@ class Solution:
                 if node.right:
                     queue.append(node.right)
         return res
+
+
+# leetcode medium 1448. Count Good Nodes in Binary Tree
+class Solution:
+    def goodNodes(self, root: TreeNode) -> int:
+        self.count = 0
+        self._dfs(root, float("-inf"))
+        return self.count
+
+    def _dfs(self, node, curr_max_value):
+        if not node:
+            return
+        if node.val >= curr_max_value:
+            self.count += 1
+        curr_max_value = max(curr_max_value, node.val)
+
+        self._dfs(node.left, curr_max_value)
+        self._dfs(node.right, curr_max_value)
