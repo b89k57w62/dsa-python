@@ -2,7 +2,6 @@ from typing import List, Optional
 from collections import deque
 import operator
 import heapq
-import functools
 import math
 from utils.tree_node import TreeNode
 from utils.list_node import ListNode
@@ -1569,23 +1568,17 @@ class Solution:
 
 
 # leetcode medium 179. Largest Number
+class LargerNum(str):
+    def __lt__(self, other):
+        return self + other > other + self
+
+
 class Solution:
     def largestNumber(self, nums: List[int]) -> str:
-        strs = [str(num) for num in nums]
-        strs.sort(key=functools.cmp_to_key(self.compare))
-        res = "".join(strs)
-        if res[0] == "0":
-            return "0"
-        else:
-            return res
-
-    def compare(self, s1, s2):
-        if s1 + s2 > s2 + s1:
-            return -1
-        elif s1 + s2 < s2 + s1:
-            return 1
-        else:
-            return 0
+        str_nums = [str(num) for num in nums]
+        str_nums.sort(key=LargerNum)
+        res = "".join(str_nums)
+        return "0" if res[0] == "0" else res
 
 
 # leetcode medium 56. Merge Intervals
