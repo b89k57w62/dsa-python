@@ -2335,3 +2335,24 @@ class Solution:
 
         self._dfs(node.left, curr_max_value)
         self._dfs(node.right, curr_max_value)
+
+
+# leetcode medium 105. Construct Binary Tree from Preorder and Inorder Traversal
+class Solution:
+    def buildTree(self, preorder: List[int], inorder: List[int]) -> Optional[TreeNode]:
+        self.preorder_idx = 0
+        inorder_map = {val: idx for idx, val in enumerate(inorder)}
+        return self._dfs(preorder, inorder_map, 0, len(inorder) - 1)
+
+    def _dfs(self, preorder, inorder_map, in_start, in_end):
+        if in_start > in_end:
+            return None
+        root_val = preorder[self.preorder_idx]
+        root = TreeNode(root_val)
+        self.preorder_idx += 1
+
+        inorder_root_idx = inorder_map[root_val]
+        root.left = self._dfs(preorder, inorder_map, in_start, inorder_root_idx - 1)
+        root.right = self._dfs(preorder, inorder_map, inorder_root_idx + 1, in_end)
+
+        return root
