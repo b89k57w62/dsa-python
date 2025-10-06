@@ -1602,7 +1602,7 @@ class Solution:
     def threeSum(self, nums: List[int]) -> List[List[int]]:
         res = []
         nums.sort()
-        for idx, num in enumerate(nums):
+        for idx in range(len(nums)):
             if idx > 0 and nums[idx] == nums[idx - 1]:
                 continue
             left_idx, right_idx = idx + 1, len(nums) - 1
