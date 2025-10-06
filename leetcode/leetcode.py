@@ -2356,3 +2356,38 @@ class Solution:
         root.right = self._dfs(preorder, inorder_map, inorder_root_idx + 1, in_end)
 
         return root
+
+# leetcode medium 208. Implement Trie (Prefix Tree)
+class TrieNode:
+    def __init__(self):
+        self.child = {}
+        self.is_end_of_word = False
+
+class Trie:
+    def __init__(self):
+        self.root = TrieNode()
+
+    def insert(self, word: str) -> None:
+        current_node = self.root
+        for char in word:
+            if char not in current_node.child:
+                current_node.child[char] = TrieNode()
+            current_node = current_node.child[char]
+        current_node.is_end_of_word = True
+
+    def search(self, word: str) -> bool:
+        current_node = self.root
+        for char in word:
+            if char not in current_node.child:
+                return False
+            current_node = current_node.child[char]
+        return current_node.is_end_of_word
+
+
+    def startsWith(self, prefix: str) -> bool:
+        current_node = self.root
+        for char in prefix:
+            if char not in current_node.child:
+                return False
+            current_node = current_node.child[char]
+        return True
