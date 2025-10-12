@@ -2357,11 +2357,13 @@ class Solution:
 
         return root
 
+
 # leetcode medium 208. Implement Trie (Prefix Tree)
 class TrieNode:
     def __init__(self):
         self.child = {}
         self.is_end_of_word = False
+
 
 class Trie:
     def __init__(self):
@@ -2383,7 +2385,6 @@ class Trie:
             current_node = current_node.child[char]
         return current_node.is_end_of_word
 
-
     def startsWith(self, prefix: str) -> bool:
         current_node = self.root
         for char in prefix:
@@ -2391,3 +2392,36 @@ class Trie:
                 return False
             current_node = current_node.child[char]
         return True
+
+
+# leetcode medium 211. Design Add and Search Words Data Structure
+class WordDictionary:
+    def __init__(self):
+        self.root = TrieNode()
+
+    def addWord(self, word: str) -> None:
+        curr_node = self.root
+        for char in word:
+            if char not in curr_node.child:
+                curr_node.child[char] = TrieNode()
+            curr_node = curr_node.child[char]
+        curr_node.is_end_of_word = True
+
+    def _dfs(self, idx, node):
+        curr_node = node
+        for i in range(idx, len(self.word)):
+            char = self.word[i]
+            if char == ".":
+                for child_node in curr_node.child.values():
+                    if self._dfs(i + 1, child_node):
+                        return True
+                return False
+            else:
+                if char not in curr_node.child:
+                    return False
+                curr_node = curr_node.child[char]
+        return curr_node.is_end_of_word
+
+    def search(self, word: str) -> bool:
+        self.word = word
+        return self._dfs(0, self.root)
