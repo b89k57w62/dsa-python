@@ -1,5 +1,5 @@
 from typing import List, Optional
-from collections import deque
+from collections import deque, Counter
 import operator
 import heapq
 import math
@@ -2425,3 +2425,32 @@ class WordDictionary:
     def search(self, word: str) -> bool:
         self.word = word
         return self._dfs(0, self.root)
+
+
+class Solution:
+    def leastInterval(self, tasks: List[str], n: int) -> int:
+        # place the most frequent tasks first
+        # completed on cycles are n + 1
+        task_counts = Counter(tasks)  # {task: count}
+        max_heap = []
+        for count in task_counts.values():
+            heapq.heappush(max_heap, -count)
+        time = 0
+        while max_heap:
+            temp_task = []
+            idx = 0  # number of tasks completed in the current cycle
+            while idx <= n:
+                if not max_heap:
+                    break
+                curr_freq = heapq.heappop(max_heap)
+                curr_freq += 1
+                idx += 1
+                if curr_freq < 0:
+                    temp_task.append(curr_freq)
+            if temp_task:
+                time += n + 1
+            else:
+                time += idx
+            for freq in temp_task:
+                heapq.heappush(max_heap, freq)
+        return time
