@@ -1,5 +1,6 @@
 from typing import List, Optional
 from collections import deque, Counter
+import collections
 import operator
 import heapq
 import math
@@ -2454,3 +2455,47 @@ class Solution:
             for freq in temp_task:
                 heapq.heappush(max_heap, freq)
         return time
+
+
+# leetcode medium 359. Logger Rate Limiter
+class Twitter:
+
+    def __init__(self):
+        self.time = 0
+        self.tweets = collections.defaultdict(list)
+        self.follows = collections.defaultdict(set)
+
+    def postTweet(self, userId: int, tweetId: int) -> None:
+        self.time += 1
+        self.tweets[userId].append((self.time, tweetId))
+
+    def getNewsFeed(self, userId: int) -> List[int]:
+        res = []
+        max_heap = []
+        self.follows[userId].add(userId)
+        for followeeId in self.follows[userId]:
+            if self.tweets[followeeId]:
+                followee_tweets = self.tweets[followeeId]
+                lastest_tweet_idx = len(followee_tweets) - 1
+                timestamp, tweetId = followee_tweets[lastest_tweet_idx]
+                heapq.heappush(
+                    max_heap, (-timestamp, tweetId, followeeId, lastest_tweet_idx)
+                )
+        while max_heap and len(res) < 10:
+            timestamp, tweetId, followeeId, lastest_tweet_idx = heapq.heappop(max_heap)
+            res.append(tweetId)
+            if lastest_tweet_idx > 0:
+                prev_tweet_idx = lastest_tweet_idx - 1
+                prev_timestamp, prev_tweetId = self.tweets[followeeId][prev_tweet_idx]
+                heapq.heappush(
+                    max_heap,
+                    (-prev_timestamp, prev_tweetId, followeeId, prev_tweet_idx),
+                )
+        return res
+
+    def follow(self, followerId: int, followeeId: int) -> None:
+        self.follows[followerId].add(followeeId)
+
+    def unfollow(self, followerId: int, followeeId: int) -> None:
+        if followeeId in self.follows[followerId]:
+            self.follows[followerId].remove(followeeId)
