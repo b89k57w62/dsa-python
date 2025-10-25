@@ -2521,3 +2521,21 @@ class Solution:
             res.append(intervals[i])
             i += 1
         return res
+
+
+# leetcode medium 435. Non-overlapping Intervals
+class Solution:
+    def eraseOverlapIntervals(self, intervals: List[List[int]]) -> int:
+        if not intervals:
+            return 0
+        intervals.sort(key=lambda x: x[1])
+        removed_count = 0
+        prev_end = intervals[0][1]
+        for i in range(1, len(intervals)):
+            curr_start = intervals[i][0]
+            curr_end = intervals[i][1]
+            if prev_end > curr_start:
+                removed_count += 1
+            else:
+                prev_end = curr_end
+        return removed_count
