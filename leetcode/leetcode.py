@@ -6,6 +6,7 @@ import heapq
 import math
 from utils.tree_node import TreeNode
 from utils.list_node import ListNode
+from utils.interval import Interval
 
 
 class Node:
@@ -2539,3 +2540,17 @@ class Solution:
             else:
                 prev_end = curr_end
         return removed_count
+
+
+# leetcode easy 252. Meeting Rooms
+class Solution:
+    def canAttendMeetings(self, intervals: List[Interval]) -> bool:
+        if not intervals:
+            return True
+        intervals.sort(key=lambda x: x.start)
+        prev_end = intervals[0].end
+        for i in range(1, len(intervals)):
+            if prev_end > intervals[i].start:
+                return False
+            prev_end = intervals[i].end
+        return True
