@@ -163,11 +163,11 @@ class Solution(object):
         :rtype: int
         """
         total = 0
-        if solutions == "標準貪婪演算法":
+        if solutions == "greedy":
             for i in range(1, len(prices)):
                 if prices[i] > prices[i - 1]:
                     total += prices[i] - prices[i - 1]
-        elif solutions == "貪婪演算法但不夠精簡":
+        elif solutions == "greedy but not efficient":
             min_price = float("inf")
             for i, price in enumerate(prices):
                 if price < min_price:
