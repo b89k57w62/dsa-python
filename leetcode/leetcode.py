@@ -2554,3 +2554,17 @@ class Solution:
                 return False
             prev_end = intervals[i].end
         return True
+
+
+# leetcode medium 253. Meeting Rooms II
+class Solution:
+    def minMeetingRooms(self, intervals: List[Interval]) -> int:
+        if not intervals:
+            return 0
+        min_heap = []
+        intervals.sort(key=lambda x: x.start)
+        for interval in intervals:
+            if min_heap and interval.start >= min_heap[0]:
+                heapq.heappop(min_heap)
+            heapq.heappush(min_heap, interval.end)
+        return len(min_heap)
