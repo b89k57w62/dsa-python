@@ -2568,3 +2568,37 @@ class Solution:
                 heapq.heappop(min_heap)
             heapq.heappush(min_heap, interval.end)
         return len(min_heap)
+
+
+# leetcode easy 53. Maximum Subarray
+class Solution:
+    def maxSubArray(self, nums: List[int], method: str) -> int:
+        if method == "greedy":
+            res = nums[0]
+            curr_sum = nums[0]
+            for num in nums[1:]:
+                curr_sum = max(num, curr_sum + num)
+                res = max(res, curr_sum)
+            return res
+        elif method == "divide_conquer":
+            self.nums = nums
+            return self.divide_conquer(0, len(self.nums) - 1)
+
+    def divide_conquer(self, left, right):
+        if left == right:
+            return self.nums[left]
+        mid_idx = (left + right) // 2
+        max_left_sum = self.divide_conquer(left, mid_idx)
+        max_right_sum = self.divide_conquer(mid_idx + 1, right)
+        left_cross_sum = float("-inf")
+        curr_sum = 0
+        for i in range(mid_idx, left - 1, -1):
+            curr_sum += self.nums[i]
+            left_cross_sum = max(left_cross_sum, curr_sum)
+        right_cross_sum = float("-inf")
+        curr_sum = 0
+        for i in range(mid_idx + 1, right + 1):
+            curr_sum += self.nums[i]
+            right_cross_sum = max(right_cross_sum, curr_sum)
+        max_cross_sum = right_cross_sum + left_cross_sum
+        return max(max_cross_sum, max_left_sum, max_right_sum)
