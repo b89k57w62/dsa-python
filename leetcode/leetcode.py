@@ -2576,7 +2576,8 @@ class Solution:
         if method == "greedy":
             res = nums[0]
             curr_sum = nums[0]
-            for num in nums[1:]:
+            for i in range(1, len(nums)):
+                num = nums[i]
                 curr_sum = max(num, curr_sum + num)
                 res = max(res, curr_sum)
             return res
