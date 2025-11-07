@@ -601,7 +601,9 @@ class RecentCounter:
 
     def ping(self, t: int) -> int:
         self.queue.append(t)
+        # the time window is 3000ms
         boundry = t - 3000
+        # pop the elements that are out of the time window
         while self.queue and self.queue[0] < boundry:
             self.queue.popleft()
         return len(self.queue)
