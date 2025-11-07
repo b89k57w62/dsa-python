@@ -185,12 +185,13 @@ class Solution(object):
         :type nums: List[int]
         :rtype: bool
         """
-        max_range = 0
+        max_reach_idx = 0
         for i in range(len(nums)):
-            if i > max_range:
+            # current position i is beyond the maximum reachable index
+            if i > max_reach_idx:
                 return False
-            max_range = max(max_range, i + nums[i])
-            if max_range >= len(nums) - 1:
+            max_reach_idx = max(max_reach_idx, i + nums[i])
+            if max_reach_idx >= len(nums) - 1:
                 return True
         return False
 
