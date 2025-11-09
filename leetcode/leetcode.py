@@ -1122,18 +1122,16 @@ class Solution:
 # leetcode medium 1382. Balance a Binary Search Tree
 class Solution:
     def balanceBST(self, root: Optional[TreeNode]) -> Optional[TreeNode]:
-        nodes = []
-        self.inorder(root, nodes)
+        nodes = self.inorder(root)
         return self.build(nodes, 0, len(nodes) - 1)
 
-    def inorder(self, root, res):
+    # flatten the BST into a sorted list of nodes using in-order traversal
+    def inorder(self, root):
         if not root:
             return None
-        self.inorder(root.left, res)
-        res.append(root)
-        self.inorder(root.right, res)
-        return res
+        return self.inorder(root.left) + [root] + self.inorder(root.right)
 
+    # divide and conquer to build the balanced BST
     def build(self, res, lo, hi):
         if lo > hi:
             return
