@@ -206,8 +206,7 @@ class Solution(object):
         boundary = 0
         counts = 0
         max_distance_idx = 0
-        # last index is not included, because it is the target
-        for i in range(len(nums) - 2):
+        for i in range(len(nums) - 1):
             max_distance_idx = max(max_distance_idx, i + nums[i])
             if i == boundary:
                 counts += 1
