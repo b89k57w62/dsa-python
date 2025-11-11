@@ -205,12 +205,16 @@ class Solution(object):
         """
         boundary = 0
         counts = 0
-        max_distance = 0
-        for i in range(len(nums) - 1):
-            max_distance = max(max_distance, i + nums[i])
+        max_distance_idx = 0
+        # last index is not included, because it is the target
+        for i in range(len(nums) - 2):
+            max_distance_idx = max(max_distance_idx, i + nums[i])
             if i == boundary:
                 counts += 1
-                boundary = max_distance
+                boundary = max_distance_idx
+                # if the boundary is already the target, return the counts
+                if boundary >= len(nums) - 1:
+                    return counts
         return counts
 
 
