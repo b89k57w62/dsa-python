@@ -2082,6 +2082,7 @@ class Solution:
         """
         Do not return anything, modify head in-place instead.
         """
+        # step1: find the middle of the list
         if not head and not head.next:
             return
         slow = fast = head
@@ -2090,7 +2091,7 @@ class Solution:
             fast = fast.next.next
         second_head = slow.next
         slow.next = None
-
+        # step2: reverse the second half of the list
         prev = None
         curr = second_head
         while curr:
@@ -2098,6 +2099,7 @@ class Solution:
             curr.next = prev
             prev = curr
             curr = temp
+        # step3: merge the two halves of the list
         first = head
         second = prev
         while second:
