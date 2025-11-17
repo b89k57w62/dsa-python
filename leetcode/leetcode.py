@@ -2609,3 +2609,19 @@ class Solution:
             right_cross_sum = max(right_cross_sum, curr_sum)
         max_cross_sum = right_cross_sum + left_cross_sum
         return max(max_cross_sum, max_left_sum, max_right_sum)
+
+
+# leetcode medium 134. Gas Station
+class Solution:
+    def canCompleteCircuit(self, gas: List[int], cost: List[int]) -> int:
+        if sum(gas) < sum(cost):
+            return -1
+        curr_tank = 0
+        start_idx = 0
+        for i in range(len(gas)):
+            curr_tank += gas[i] - cost[i]
+            if curr_tank < 0:
+                start_idx = i + 1
+                curr_tank = 0
+        # if reach here, means we can complete the circuit, because total gas >= total cost
+        return start_idx
