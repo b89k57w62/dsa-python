@@ -2625,3 +2625,24 @@ class Solution:
                 curr_tank = 0
         # if reach here, means we can complete the circuit, because total gas >= total cost
         return start_idx
+
+
+# leetcode medium 846. Hand of Straights
+class Solution:
+    def isNStraightHand(self, hand: List[int], groupSize: int) -> bool:
+        if len(hand) % groupSize != 0:
+            return False
+
+        count = Counter(hand)
+        sorted_keys = sorted(count.keys())
+        for card in sorted_keys:
+            if count[card] > 0:
+                num_needed = count[card]
+                for i in range(groupSize):
+                    # next card in the sequence
+                    curr_card = card + i
+                    # not enough cards to complete the sequence
+                    if count[curr_card] < num_needed:
+                        return False
+                    count[curr_card] -= num_needed
+        return True
