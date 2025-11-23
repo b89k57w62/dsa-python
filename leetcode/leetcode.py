@@ -2646,3 +2646,20 @@ class Solution:
                         return False
                     count[curr_card] -= num_needed
         return True
+
+
+# leetcode medium 1899. Merge Triplets to Form Target Triplet
+class Solution:
+    def mergeTriplets(self, triplets: List[List[int]], target: List[int]) -> bool:
+        found = set()
+        for triplet in triplets:
+            if (
+                triplet[0] > target[0]
+                or triplet[1] > target[1]
+                or triplet[2] > target[2]
+            ):
+                continue
+            for i in range(3):
+                if triplet[i] == target[i]:
+                    found.add(i)
+        return len(found) == 3
