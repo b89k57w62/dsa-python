@@ -995,13 +995,31 @@ class Solution:
 
 # leetcode easy 94. Binary Tree Inorder Traversal
 class Solution:
-    def inorderTraversal(self, root: Optional[TreeNode]) -> List[int]:
+    def inorderTraversal(
+        self, root: Optional[TreeNode], solution_type: str
+    ) -> List[int]:
         if root is None:
             return []
-        left_val = self.inorderTraversal(root.left)
-        mid = [root.val]
-        right_val = self.inorderTraversal(root.right)
-        return left_val + mid + right_val
+        if solution_type == "recursive":
+            return (
+                self.inorderTraversal(root.left)
+                + [root.val]
+                + self.inorderTraversal(root.right)
+            )
+        elif solution_type == "iterative":
+            curr = root
+            stack = []
+            res = []
+            # Continue as long as there are nodes to visit (curr) or nodes in the stack to backtrack to
+            while curr or stack:
+                # go to the leftmost node
+                while curr:
+                    stack.append(curr)
+                    curr = curr.left
+                curr = stack.pop()
+                res.append(curr.val)
+                curr = curr.right
+            return res
 
 
 # leetcode easy 144. Binary Tree Preorder Traversal
