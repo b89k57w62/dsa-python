@@ -2722,3 +2722,21 @@ class Solution:
             if min_range < 0:
                 min_range = 0
         return min_range == 0
+
+
+# leetcode medium 78. Subsets
+class Solution:
+    # time complexity: O(n * 2^n) there are 2^n subsets and each subset takes O(n) time to copy
+    # space complexity: O(n * 2^n) Total space including output, O(n) for recursion stack
+    def subsets(self, nums: List[int]) -> List[List[int]]:
+        res = []
+        self._backtrack(0, [], nums, res)
+        return res
+
+    def _backtrack(self, start_idx, curr_path, nums, res):
+        # pass by value
+        res.append(curr_path[:])
+        for i in range(start_idx, len(nums)):
+            curr_path.append(nums[i])
+            self._backtrack(i + 1, curr_path, nums, res)
+            curr_path.pop()
