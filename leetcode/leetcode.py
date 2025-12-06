@@ -974,6 +974,8 @@ class Solution:
 
 # leetcode medium 102. Binary Tree Level Order Traversal
 class Solution:
+    # time complexity: O(n), Each node is enqueued and dequeued exactly once
+    # space complexity: O(n), Queue holds the widest level of the tree and in the worst case (perfect binary tree), the last level contains N/2 nodes
     def levelOrder(self, root: Optional[TreeNode]) -> List[List[int]]:
         if not root:
             return []
