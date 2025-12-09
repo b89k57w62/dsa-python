@@ -2745,3 +2745,27 @@ class Solution:
             curr_path.append(nums[i])
             self._backtrack(i + 1, curr_path, nums, res)
             curr_path.pop()
+
+
+# leetcode medium 39. Combination Sum
+class Solution:
+    # time complexity: O(N ^ (target/min_val)) where N is the number of candidates and min_val is the minimum value in candidates
+    # space complexity: O(target/min_val) for recursion stack
+    def combinationSum(self, candidates: List[int], target: int) -> List[List[int]]:
+        res = []
+        # time complexity: O(N log N) for sorting
+        candidates.sort()
+        self._backtrack(candidates, target, res, 0, [])
+        return res
+
+    def _backtrack(self, candidates, target, res, start_idx, curr_path):
+        if target == 0:
+            res.append(curr_path[:])
+        for i in range(start_idx, len(candidates)):
+            num = candidates[i]
+            # Pruning: stop early since candidates are sorted
+            if target - num < 0:
+                break
+            curr_path.append(num)
+            self._backtrack(candidates, target - num, res, i, curr_path)
+            curr_path.pop()
