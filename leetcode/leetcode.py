@@ -2196,13 +2196,16 @@ class Solution:
 
 # leetcode medium 287. Find the Duplicate Number
 class Solution:
+    # time complexity: O(n)
+    # space complexity: O(1)
     def findDuplicate(self, nums: List[int]) -> int:
         slow = nums[0]
         fast = nums[nums[0]]
         while slow != fast:
             slow = nums[slow]
             fast = nums[nums[fast]]
-
+        # Distance(Start->Entry) == Distance(Meeting->Entry) + 1 Loop
+        # Example 1: 3 steps      == 1 step                 + 2 steps
         slow = 0
 
         while slow != fast:
