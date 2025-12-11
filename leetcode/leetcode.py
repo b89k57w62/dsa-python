@@ -1794,6 +1794,8 @@ class Solution:
 
 # leetcode easy 125. Valid Palindrome
 class Solution:
+    # time complexity: O(n)
+    # space complexity: O(1)
     def isPalindrome(self, s: str) -> bool:
         left_pointer, right_pointer = 0, len(s) - 1
         while left_pointer <= right_pointer:
