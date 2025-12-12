@@ -2771,3 +2771,35 @@ class Solution:
             curr_path.append(num)
             self._backtrack(candidates, target - num, res, i, curr_path)
             curr_path.pop()
+
+
+# leetcode medium 40. Combination Sum II
+class Solution:
+    """
+    time complexity: O(2^n * n)
+    - 2^n: Binary choices for each element (select or not select), creates 2^n subsets
+    - n:   Cost of copying the current path (curr_path[:]) when a solution is found
+    space complexity: O(n)
+    - Max recursion depth is n (since elements cannot be reused)
+    """
+
+    def combinationSum2(self, candidates: List[int], target: int) -> List[List[int]]:
+        res = []
+        candidates.sort()
+        self._backtrack(candidates, target, res, 0, [])
+        return res
+
+    def _backtrack(self, candidates, target, res, start_idx, curr_path):
+        if target == 0:
+            res.append(curr_path[:])
+            return
+
+        for i in range(start_idx, len(candidates)):
+            num = candidates[i]
+            if target - num < 0:
+                break
+            if i > start_idx and candidates[i] == candidates[i - 1]:
+                continue
+            curr_path.append(num)
+            self._backtrack(candidates, target - num, res, i + 1, curr_path)
+            curr_path.pop()
