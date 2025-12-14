@@ -2805,3 +2805,28 @@ class Solution:
             curr_path.append(num)
             self._backtrack(candidates, target - num, res, i + 1, curr_path)
             curr_path.pop()
+
+
+# leetcode medium 46. Permutations
+class Solution:
+    # time complexity: O(n!) There are N! permutations, and each takes O(N) to shallow copy the current path
+    # space complexity: O(n)
+    def permute(self, nums: List[int]) -> List[List[int]]:
+        res = []
+        visited = [False] * len(nums)
+        self._backtrack(nums, res, visited, [])
+        return res
+
+    def _backtrack(self, nums, res, visited, curr_path):
+        if len(curr_path) == len(nums):
+            res.append(curr_path[:])
+            return
+        for i in range(len(nums)):
+            num = nums[i]
+            if visited[i]:
+                continue
+            visited[i] = True
+            curr_path.append(num)
+            self._backtrack(nums, res, visited, curr_path)
+            visited[i] = False
+            curr_path.pop()
