@@ -2221,6 +2221,8 @@ class Solution:
 
 # leetcode medium 146. LRU Cache
 class LRUCache:
+    # time complexity: O(1)
+    # space complexity: O(n)
     class Node:
         def __init__(self, key, val):
             self.key = key
