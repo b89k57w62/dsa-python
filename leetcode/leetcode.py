@@ -1483,19 +1483,38 @@ class Solution:
 
 # leetcode medium 797. All Paths from Source to Target
 class Solution:
-    def allPathsSourceTarget(self, graph: List[List[int]]) -> List[List[int]]:
+    """
+    backtrack: time complexity: O(n * 2^n), space complexity: O(n)
+    dfs: time complexity: O(n * 2^n), space complexity: O(n^2), because the current path would be copied for each neighbor
+    """
+
+    def allPathsSourceTarget(
+        self, graph: List[List[int]], solutions: str
+    ) -> List[List[int]]:
         res = []
         target_node = len(graph) - 1
-        self.dfs(graph, 0, [0], target_node, res)
+        if solutions == "dfs":
+            self._dfs(graph, 0, [0], target_node, res)
+        elif solutions == "backtrack":
+            self._backtrack(graph, 0, [0], target_node, res)
         return res
 
-    def dfs(self, graph, current_node, current_path, target_node, res):
+    def _dfs(self, graph, current_node, current_path, target_node, res):
         if current_node == target_node:
             res.append(current_path)
             return
 
         for neighbor in graph[current_node]:
             self.dfs(graph, neighbor, current_path + [neighbor], target_node, res)
+
+    def _backtrack(self, graph, current_node, current_path, target_node, res):
+        if current_node == target_node:
+            res.append(current_path[:])
+            return
+        for neighbor in graph[current_node]:
+            current_path.append(neighbor)
+            self._backtrack(graph, neighbor, current_path, target_node, res)
+            current_path.pop()
 
 
 # leetcode medium 148. Sort List
