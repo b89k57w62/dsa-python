@@ -719,14 +719,29 @@ class MyCircularQueue:
 
 # leetcode easy 217. Contains Duplicate
 class Solution:
-    def containsDuplicate(self, nums: List[int]) -> bool:
-        hash = {}
-        for num in nums:
-            if num not in hash:
-                hash[num] = num
-            else:
-                return True
-        return False
+    """
+    solution types:
+    - hash and set: O(n) time, O(n) space
+    - sort: O(n log n) time, O(1) space
+    """
+
+    def containsDuplicate(self, nums: List[int], solution_type: str) -> bool:
+        if solution_type == "hash":
+            hash = {}
+            for num in nums:
+                if num not in hash:
+                    hash[num] = num
+                else:
+                    return True
+            return False
+        elif solution_type == "sort":
+            nums.sort()
+            for i in range(1, len(nums)):
+                if nums[i] == nums[i - 1]:
+                    return True
+            return False
+        elif solution_type == "set":
+            return len(set(nums)) != len(nums)
 
 
 # leetcode easy 242. Valid Anagram
