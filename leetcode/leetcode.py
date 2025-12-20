@@ -398,6 +398,8 @@ class Solution(object):
         """
         :type s: str
         :rtype: bool
+        time complexity: O(n)
+        space complexity: O(1)
         """
         if solution == "tow pointer":
             left, right = 0, len(s) - 1
