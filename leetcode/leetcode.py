@@ -2868,3 +2868,24 @@ class Solution:
             self._backtrack(nums, res, visited, curr_path)
             visited[i] = False
             curr_path.pop()
+
+
+# leetcode medium 90. Subsets II
+class Solution:
+    # time complexity: O(n * 2^n) 2^n subsets, each requires O(n) to shallow copy; sorting O(n log n) negligible
+    # space complexity: O(n) for recursion stack
+    def subsetsWithDup(self, nums: List[int]) -> List[List[int]]:
+        res = []
+        nums.sort()
+        self._backtrack(nums, res, 0, [])
+        return res
+
+    def _backtrack(self, nums, res, start_idx, curr_path):
+        res.append(curr_path[:])
+        for i in range(start_idx, len(nums)):
+            num = nums[i]
+            if i > start_idx and nums[i] == nums[i - 1]:
+                continue
+            curr_path.append(num)
+            self._backtrack(nums, res, i + 1, curr_path)
+            curr_path.pop()
