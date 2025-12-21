@@ -2312,13 +2312,26 @@ class LRUCache:
 
 # leetcode easy 226. Invert Binary Tree
 class Solution:
-    def invertTree(self, root: Optional[TreeNode]) -> Optional[TreeNode]:
+    # time complexity: O(n)
+    # space complexity: O(n), dfs: O(h), bfs: O(w), h: height of the tree, w: width of the tree
+    def invertTree(
+        self, root: Optional[TreeNode], solution_type: str
+    ) -> Optional[TreeNode]:
         if not root:
             return None
-        origin_left = root.left
-        origin_right = root.right
-        root.left = self.invertTree(origin_right)
-        root.right = self.invertTree(origin_left)
+        if solution_type == "dfs":
+            root.left, root.right = self.invertTree(root.right, "dfs"), self.invertTree(
+                root.left, "dfs"
+            )
+        elif solution_type == "bfs":
+            que = deque([root])
+            while que:
+                curr_node = que.popleft()
+                curr_node.left, curr_node.right = curr_node.right, curr_node.left
+                if curr_node.left:
+                    que.append(curr_node.left)
+                if curr_node.right:
+                    que.append(curr_node.right)
         return root
 
 
