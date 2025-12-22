@@ -2902,3 +2902,41 @@ class Solution:
             curr_path.append(num)
             self._backtrack(nums, res, i + 1, curr_path)
             curr_path.pop()
+
+
+# leetcode medium 79. Word Search
+class Solution:
+    # time complexity: O(n * 3^l) where n is the number of cells in the board and l is the length of the word
+    # space complexity: O(l) for the recursion stack
+    def exist(self, board: List[List[str]], word: str) -> bool:
+        rows = len(board)
+        cols = len(board[0])
+
+        def _backtrack(row, col, word_idx):
+            if word_idx == len(word):
+                return True
+            if (
+                row < 0
+                or row >= rows
+                or col < 0
+                or col >= cols
+                or board[row][col] != word[word_idx]
+            ):
+                return False
+            temp = board[row][col]
+            board[row][col] = "#"
+            directions = [(-1, 0), (1, 0), (0, -1), (0, 1)]
+            found = False
+            for d_row, d_col in directions:
+                if _backtrack(d_row + row, d_col + col, word_idx + 1):
+                    found = True
+                    break
+            board[row][col] = temp
+            return found
+
+        for r in range(rows):
+            for c in range(cols):
+                if board[r][c] == word[0]:
+                    if _backtrack(r, c, 0):
+                        return True
+        return False
