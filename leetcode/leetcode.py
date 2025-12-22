@@ -2860,7 +2860,7 @@ class Solution:
 
 # leetcode medium 46. Permutations
 class Solution:
-    # time complexity: O(n!) There are N! permutations, and each takes O(N) to shallow copy the current path
+    # time complexity: O(n * n!) There are N! permutations, and each takes O(N) to shallow copy the current path
     # space complexity: O(n)
     def permute(self, nums: List[int]) -> List[List[int]]:
         res = []
