@@ -1043,13 +1043,31 @@ class Solution:
 
 # leetcode easy 144. Binary Tree Preorder Traversal
 class Solution:
-    def preorderTraversal(self, root: Optional[TreeNode]) -> List[int]:
-        if root is None:
-            return []
-        mid_node = [root.val]
-        left_node = self.preorderTraversal(root.left)
-        right_node = self.preorderTraversal(root.right)
-        return mid_node + left_node + right_node
+    # time complexity: O(n)
+    # space complexity: O(n), dfs: O(h), bfs: O(w), h: height of the tree, w: width of the tree
+    def preorderTraversal(
+        self, root: Optional[TreeNode], solution_type: str
+    ) -> List[int]:
+        res = []
+        if solution_type == "dfs":
+            self._dfs(res, root)
+        elif solution_type == "bfs":
+            stack = [root]
+            while stack:
+                curr_node = stack.pop()
+                res.append(curr_node.val)
+                if curr_node.right:
+                    stack.append(curr_node.right)
+                if curr_node.left:
+                    stack.append(curr_node.left)
+        return res
+
+    def _dfs(self, res, root):
+        if not root:
+            return
+        res.append(root.val)
+        self._dfs(res, root.left)
+        self._dfs(res, root.right)
 
 
 # leetcode easy 145. Binary Tree Postorder Traversal
