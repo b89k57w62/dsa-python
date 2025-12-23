@@ -2912,31 +2912,35 @@ class Solution:
         rows = len(board)
         cols = len(board[0])
 
-        def _backtrack(row, col, word_idx):
-            if word_idx == len(word):
-                return True
-            if (
-                row < 0
-                or row >= rows
-                or col < 0
-                or col >= cols
-                or board[row][col] != word[word_idx]
-            ):
-                return False
-            temp = board[row][col]
-            board[row][col] = "#"
-            directions = [(-1, 0), (1, 0), (0, -1), (0, 1)]
-            found = False
-            for d_row, d_col in directions:
-                if _backtrack(d_row + row, d_col + col, word_idx + 1):
-                    found = True
-                    break
-            board[row][col] = temp
-            return found
-
-        for r in range(rows):
-            for c in range(cols):
-                if board[r][c] == word[0]:
-                    if _backtrack(r, c, 0):
+        for row in range(rows):
+            for col in range(cols):
+                if board[row][col] == word[0]:
+                    if self._backtrack(board, word, row, col, 0):
                         return True
         return False
+
+    def _backtrack(self, board, word, row, col, idx):
+        if idx == len(word):
+            return True
+        rows = len(board)
+        cols = len(board[0])
+
+        if (
+            row < 0
+            or row >= rows
+            or col < 0
+            or col >= cols
+            or board[row][col] != word[idx]
+        ):
+            return False
+
+        found = False
+        temp = board[row][col]
+        board[row][col] = "#"
+        directions = [(1, 0), (-1, 0), (0, -1), (0, 1)]
+        for dr, dc in directions:
+            if self._backtrack(board, word, dr + row, dc + col, idx + 1):
+                found = True
+                break
+        board[row][col] = temp
+        return found
