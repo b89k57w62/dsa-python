@@ -2961,3 +2961,31 @@ class Solution:
                 break
         board[row][col] = temp
         return found
+
+
+# leetcode medium 131. Palindrome Partitioning
+class Solution:
+    # time complexity: O(n * 2^n) worst case: every character is a palindrome, so have 2^n partitions, and each partition takes O(n) time to copy
+    # space complexity: O(n) for recursion stack
+    def partition(self, s: str) -> List[List[str]]:
+        res = []
+        self._backtrack(s, res, 0, [])
+        return res
+
+    def _backtrack(self, s, res, start_idx, curr_path):
+        if start_idx == len(s):
+            res.append(curr_path[:])
+            return
+        for i in range(start_idx, len(s)):
+            if self._isPalindrome(s, start_idx, i):
+                curr_path.append(s[start_idx : i + 1])
+                self._backtrack(s, res, i + 1, curr_path)
+                curr_path.pop()
+
+    def _isPalindrome(self, s, left, right):
+        while left < right:
+            if s[left] != s[right]:
+                return False
+            left += 1
+            right -= 1
+        return True
