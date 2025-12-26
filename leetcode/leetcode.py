@@ -729,12 +729,11 @@ class Solution:
 
     def containsDuplicate(self, nums: List[int], solution_type: str) -> bool:
         if solution_type == "hash":
-            hash = {}
+            seen = set()
             for num in nums:
-                if num not in hash:
-                    hash[num] = num
-                else:
+                if num in seen:
                     return True
+                seen.add(num)
             return False
         elif solution_type == "sort":
             nums.sort()
