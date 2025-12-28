@@ -2989,3 +2989,23 @@ class Solution:
             left += 1
             right -= 1
         return True
+
+
+# leetcode medium 17. Letter Combinations of a Phone Number
+class Solution:
+    # time complexity: O(4^n * n) where n is the length of the digits
+    # space complexity: O(n) for recursion stack
+    def letterCombinations(self, digits: str) -> List[str]:
+        res = []
+        mapping = ["", "", "abc", "def", "ghi", "jkl", "mno", "pqrs", "tuv", "wxyz"]
+        self._backtrack(digits, res, mapping, 0, "")
+        return res
+
+    def _backtrack(self, digits, res, mapping, start_idx, curr_str):
+        if len(curr_str) == len(digits):
+            res.append(curr_str)
+            return
+        curr_digit = int(digits[start_idx])
+        letters = mapping[curr_digit]
+        for char in letters:
+            self._backtrack(digits, res, mapping, start_idx + 1, curr_str + char)
