@@ -1381,29 +1381,29 @@ class Solution:
 
 # leetcode medium 200. Number of Islands
 class Solution:
+    # time complexity: O(m * n) each cell is visited at most once
+    # space complexity: O(m * n) worst case: all cells are '1', so the recursion stack will be O(m * n)
     def numIslands(self, grid: List[List[str]]) -> int:
         if not grid:
             return 0
-        rows, cols = len(grid), len(grid[0])
-        islands_counts = 0
-        for row in range(rows):
-            for col in range(cols):
-                if grid[row][col] == "1":
-                    islands_counts += 1
-                    self.dfs(grid, row, col)
-        return islands_counts
+        self.rows = len(grid)
+        self.cols = len(grid[0])
+        self.islands = 0
+        for r in range(self.rows):
+            for c in range(self.cols):
+                if grid[r][c] == "1":
+                    self.islands += 1
+                    self._dfs(grid, r, c)
+        return self.islands
 
-    def dfs(self, grid, row, col):
-        rows, cols = len(grid), len(grid[0])
-        if 0 <= row < rows and 0 <= col < cols and grid[row][col] == "1":
+    def _dfs(self, grid, row, col):
+        if 0 <= row < self.rows and 0 <= col < self.cols and grid[row][col] == "1":
             grid[row][col] = "0"
         else:
             return
-
-        self.dfs(grid, row + 1, col)
-        self.dfs(grid, row - 1, col)
-        self.dfs(grid, row, col + 1)
-        self.dfs(grid, row, col - 1)
+        directions = [(-1, 0), (1, 0), (0, -1), (0, 1)]
+        for dr, dc in directions:
+            self._dfs(grid, row + dr, col + dc)
 
 
 # leetcode medium 310. Minimum Height Trees
