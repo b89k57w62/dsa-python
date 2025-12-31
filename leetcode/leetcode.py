@@ -1383,20 +1383,55 @@ class Solution:
 class Solution:
     # time complexity: O(m * n) each cell is visited at most once
     # space complexity: O(m * n) worst case: all cells are '1', so the recursion stack will be O(m * n)
-    def numIslands(self, grid: List[List[str]]) -> int:
+    def numIslands(self, grid: List[List[str]], solution_type: str = "dfs") -> int:
         if not grid:
             return 0
         self.rows = len(grid)
         self.cols = len(grid[0])
         self.islands = 0
+
+        if solution_type == "dfs":
+            self._numIslands_dfs(grid)
+        elif solution_type == "bfs":
+            self._numIslands_bfs(grid)
+        else:
+            raise ValueError(
+                f"Unknown solution_type: {solution_type}. Use 'dfs' or 'bfs'"
+            )
+
+        return self.islands
+
+    def _numIslands_dfs(self, grid: List[List[str]]) -> None:
+        """DFS implementation"""
         for r in range(self.rows):
             for c in range(self.cols):
                 if grid[r][c] == "1":
                     self.islands += 1
                     self._dfs(grid, r, c)
-        return self.islands
+
+    def _numIslands_bfs(self, grid: List[List[str]]) -> None:
+        """BFS implementation"""
+        directions = [(1, 0), (-1, 0), (0, 1), (0, -1)]
+        for row in range(self.rows):
+            for col in range(self.cols):
+                if grid[row][col] == "1":
+                    self.islands += 1
+                    grid[row][col] = "0"
+                    que = deque([(row, col)])
+                    while que:
+                        curr_r, curr_c = que.popleft()
+                        for dr, dc in directions:
+                            new_r, new_c = dr + curr_r, dc + curr_c
+                            if (
+                                0 <= new_r < self.rows
+                                and 0 <= new_c < self.cols
+                                and grid[new_r][new_c] == "1"
+                            ):
+                                grid[new_r][new_c] = "0"
+                                que.append((new_r, new_c))
 
     def _dfs(self, grid, row, col):
+        """Helper method for DFS traversal"""
         if 0 <= row < self.rows and 0 <= col < self.cols and grid[row][col] == "1":
             grid[row][col] = "0"
         else:
