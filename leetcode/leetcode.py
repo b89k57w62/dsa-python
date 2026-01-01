@@ -3044,3 +3044,77 @@ class Solution:
         letters = mapping[curr_digit]
         for char in letters:
             self._backtrack(digits, res, mapping, start_idx + 1, curr_str + char)
+
+
+# leetcode medium 695. Max Area of Island
+class Solution:
+    # time complexity: O(m * n) where m is the number of rows and n is the number of columns
+    # space complexity: O(m * n) for the recursion stack
+    def maxAreaOfIsland(self, grid: List[List[int]], solution_type: str = "dfs") -> int:
+        if not grid:
+            return 0
+
+        if solution_type == "dfs":
+            return self._maxAreaOfIsland_dfs(grid)
+        elif solution_type == "bfs":
+            return self._maxAreaOfIsland_bfs(grid)
+        else:
+            raise ValueError(
+                f"Unknown solution_type: {solution_type}. Use 'dfs' or 'bfs'"
+            )
+
+    def _maxAreaOfIsland_dfs(self, grid: List[List[int]]) -> int:
+        """DFS implementation"""
+        rows = len(grid)
+        cols = len(grid[0])
+        max_area = 0
+        for r in range(rows):
+            for c in range(cols):
+                if grid[r][c] == 1:
+                    curr_area = self._dfs(grid, r, c)
+                    max_area = max(max_area, curr_area)
+        return max_area
+
+    def _maxAreaOfIsland_bfs(self, grid: List[List[int]]) -> int:
+        """BFS implementation"""
+        rows = len(grid)
+        cols = len(grid[0])
+        max_area = 0
+        for r in range(rows):
+            for c in range(cols):
+                if grid[r][c] == 1:
+                    curr_area = self._bfs(grid, r, c)
+                    max_area = max(max_area, curr_area)
+        return max_area
+
+    def _dfs(self, grid, row, col):
+        """Helper method for DFS traversal"""
+        rows = len(grid)
+        cols = len(grid[0])
+        if 0 <= row < rows and 0 <= col < cols and grid[row][col] == 1:
+            grid[row][col] = 0
+        else:
+            return 0
+        directions = [(-1, 0), (1, 0), (0, -1), (0, 1)]
+        area = 1
+        for dr, dc in directions:
+            area += self._dfs(grid, dr + row, dc + col)
+        return area
+
+    def _bfs(self, grid, row, col):
+        """Helper method for BFS traversal"""
+        rows = len(grid)
+        cols = len(grid[0])
+        que = deque([(row, col)])
+        grid[row][col] = 0
+        area = 0
+        while que:
+            curr_r, curr_c = que.popleft()
+            area += 1
+            directions = [(-1, 0), (1, 0), (0, -1), (0, 1)]
+            for dr, dc in directions:
+                new_r, new_c = curr_r + dr, curr_c + dc
+                if 0 <= new_r < rows and 0 <= new_c < cols and grid[new_r][new_c] == 1:
+                    grid[new_r][new_c] = 0
+                    que.append((new_r, new_c))
+        return area
