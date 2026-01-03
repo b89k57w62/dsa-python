@@ -3000,7 +3000,7 @@ class Solution:
 
 # leetcode medium 131. Palindrome Partitioning
 class Solution:
-    # time complexity: O(n * 2^n) worst case: every character is a palindrome, so have 2^n partitions, and each partition takes O(n) time to copy
+    # time complexity: O(n * 2^n-1) worst case: every character is a palindrome, so have 2^n-1 partitions, and each partition takes O(n) time to copy
     # space complexity: O(n) for recursion stack
     def partition(self, s: str) -> List[List[str]]:
         res = []
