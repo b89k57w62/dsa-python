@@ -1308,19 +1308,44 @@ class Solution:
 
 # leetcode medium 133. Clone Graph
 class Solution:
-    def cloneGraph(self, node: Optional["Node"]) -> Optional["Node"]:
+    # time complexity: O(V + E) where V is the number of vertices and E is the number of edges
+    # space complexity: O(V) for the clone_map
+    def cloneGraph(
+        self, node: Optional["Node"], solution_type: str = "dfs"
+    ) -> Optional["Node"]:
         if not node:
             return None
-        copy = {}
-        return self.dfs(copy, node)
+        clone_map = {}
+        if solution_type == "dfs":
+            return self._dfs(clone_map, node)
+        elif solution_type == "bfs":
+            return self._bfs(node, clone_map)
+        else:
+            raise ValueError(
+                f"Unknown solution_type: {solution_type}. Use 'dfs' or 'bfs'"
+            )
 
-    def dfs(self, hash, cur: "Node"):
-        if cur in hash:
-            return hash[cur]
+    def _dfs(self, clone_map, cur: "Node"):
+        if cur in clone_map:
+            return clone_map[cur]
         clone_node = Node(cur.val)
-        hash[cur] = clone_node
+        clone_map[cur] = clone_node
         for neighbor in cur.neighbors:
-            clone_node.neighbors.append(self.dfs(hash, neighbor))
+            clone_node.neighbors.append(self.dfs(clone_map, neighbor))
+        return clone_node
+
+    def _bfs(self, curr_node, clone_map):
+        clone_node = Node(curr_node.val)
+        clone_map[curr_node] = clone_node
+        que = deque([curr_node])
+        while que:
+            curr_node = que.popleft()
+            for neighbor in curr_node.neighbors:
+                if neighbor not in clone_map:
+                    clone_neighbor = Node(neighbor.val)
+                    clone_map[neighbor] = clone_neighbor
+                    que.append(neighbor)
+                clone_map[curr_node].neighbors.append(clone_map[neighbor])
         return clone_node
 
 
