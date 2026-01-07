@@ -3143,3 +3143,27 @@ class Solution:
                     grid[new_r][new_c] = 0
                     que.append((new_r, new_c))
         return area
+
+
+# leetcode medium 1254. Islands and Treasure
+class Solution:
+    # time complexity: O(m * n)
+    # space complexity: O(m * n) for the que, worst case: all cells are land, so the que will be O(m * n)
+    def islandsAndTreasure(self, grid: List[List[int]]) -> None:
+        if not grid:
+            return
+        rows, cols = len(grid), len(grid[0])
+        que = deque()
+        for row in range(rows):
+            for col in range(cols):
+                if grid[row][col] == 0:
+                    que.append((row, col))
+        directions = [(-1, 0), (1, 0), (0, -1), (0, 1)]
+        while que:
+            r, c = que.popleft()
+            for dr, dc in directions:
+                new_r, new_c = dr + r, dc + c
+                if 0 <= new_r < rows and 0 <= new_c < cols:
+                    if grid[new_r][new_c] == 2147483647:
+                        grid[new_r][new_c] = grid[r][c] + 1
+                        que.append((new_r, new_c))
