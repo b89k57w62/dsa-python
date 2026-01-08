@@ -3146,7 +3146,7 @@ class Solution:
 # leetcode medium 1254. Islands and Treasure
 class Solution:
     # time complexity: O(m * n)
-    # space complexity: O(m * n) for the que, worst case: all cells are land, so the que will be O(m * n)
+    # space complexity: O(m * n) for the que
     def islandsAndTreasure(self, grid: List[List[int]]) -> None:
         if not grid:
             return
