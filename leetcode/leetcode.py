@@ -3011,16 +3011,14 @@ class Solution:
         ):
             return False
 
-        found = False
         temp = board[row][col]
         board[row][col] = "#"
         directions = [(1, 0), (-1, 0), (0, -1), (0, 1)]
         for dr, dc in directions:
             if self._backtrack(board, word, dr + row, dc + col, idx + 1):
-                found = True
-                break
+                return True
         board[row][col] = temp
-        return found
+        return False
 
 
 # leetcode medium 131. Palindrome Partitioning
