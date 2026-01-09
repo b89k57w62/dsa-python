@@ -3165,3 +3165,31 @@ class Solution:
                     if grid[new_r][new_c] == 2147483647:
                         grid[new_r][new_c] = grid[r][c] + 1
                         que.append((new_r, new_c))
+
+
+# leetcode medium 994. Rotting Oranges
+class Solution:
+    # time complexity: O(m * n), O(m * n) to scan the grid initially + O(m * n) to process each cell during BFS
+    # space complexity: O(m * n), worst case the queue stores all m * n cells (e.g., all oranges start rotten)
+    def orangesRotting(self, grid: List[List[int]]) -> int:
+        rows, cols = len(grid), len(grid[0])
+        mins = 0
+        fresh_orange_count = 0
+        que = deque()
+        for r in range(rows):
+            for c in range(cols):
+                if grid[r][c] == 2:
+                    que.append((r, c, 0))
+                elif grid[r][c] == 1:
+                    fresh_orange_count += 1
+        while que:
+            row, col, time = que.popleft()
+            mins = time
+            directions = [(-1, 0), (1, 0), (0, -1), (0, 1)]
+            for dr, dc in directions:
+                new_r, new_c = dr + row, dc + col
+                if 0 <= new_r < rows and 0 <= new_c < cols and grid[new_r][new_c] == 1:
+                    grid[new_r][new_c] = 2
+                    fresh_orange_count -= 1
+                    que.append((new_r, new_c, time + 1))
+        return mins if fresh_orange_count == 0 else -1
