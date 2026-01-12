@@ -3193,3 +3193,42 @@ class Solution:
                     fresh_orange_count -= 1
                     que.append((new_r, new_c, time + 1))
         return mins if fresh_orange_count == 0 else -1
+
+
+# leetcode medium 417. Pacific Atlantic Water Flow
+class Solution:
+    # time complexity: O(m * n), total O(3 * m * n) for DFS traversal for each cell and O(m * n) for the result
+    # space complexity: O(m * n) for the visit set
+    def pacificAtlantic(self, heights: List[List[int]]) -> List[List[int]]:
+        if not heights or not heights[0]:
+            return []
+        res = []
+        pac, atl = set(), set()
+        rows, cols = len(heights), len(heights[0])
+        for row in range(rows):
+            self._dfs(heights, row, 0, pac, heights[row][0])
+            self._dfs(heights, row, cols - 1, atl, heights[row][cols - 1])
+        for col in range(cols):
+            self._dfs(heights, 0, col, pac, heights[0][col])
+            self._dfs(heights, rows - 1, col, atl, heights[rows - 1][col])
+        for r in range(rows):
+            for c in range(cols):
+                if (r, c) in pac and (r, c) in atl:
+                    res.append([r, c])
+        return res
+
+    def _dfs(self, heights, row, col, visit, prev_height):
+        rows, cols = len(heights), len(heights[0])
+        if (
+            row < 0
+            or row >= rows
+            or col < 0
+            or col >= cols
+            or (row, col) in visit
+            or heights[row][col] < prev_height
+        ):
+            return
+        visit.add((row, col))
+        directions = [(-1, 0), (1, 0), (0, -1), (0, 1)]
+        for dr, dc in directions:
+            self._dfs(heights, dr + row, dc + col, visit, heights[row][col])
