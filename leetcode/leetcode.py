@@ -3232,3 +3232,37 @@ class Solution:
         directions = [(-1, 0), (1, 0), (0, -1), (0, 1)]
         for dr, dc in directions:
             self._dfs(heights, dr + row, dc + col, visit, heights[row][col])
+
+
+# leetcode medium 130. Surrounded Regions
+class Solution:
+    # time complexity: O(m * n), each cell is visited at most once
+    # space complexity: O(m * n), worst case: all cells are 'O', so the recursion stack will be O(m * n)
+    def solve(self, board: List[List[str]]) -> None:
+        """
+        Do not return anything, modify board in-place instead.
+        """
+        if not board or not board[0]:
+            return
+        rows, cols = len(board), len(board[0])
+        for row in range(rows):
+            self._dfs(board, row, 0)
+            self._dfs(board, row, cols - 1)
+        for col in range(cols):
+            self._dfs(board, 0, col)
+            self._dfs(board, rows - 1, col)
+        for row in range(rows):
+            for col in range(cols):
+                if board[row][col] == "O":
+                    board[row][col] = "X"
+                elif board[row][col] == "#":
+                    board[row][col] = "O"
+
+    def _dfs(self, board, row, col):
+        rows, cols = len(board), len(board[0])
+        if row < 0 or row >= rows or col < 0 or col >= cols or board[row][col] != "O":
+            return
+        board[row][col] = "#"
+        directions = [(-1, 0), (1, 0), (0, -1), (0, 1)]
+        for dr, dc in directions:
+            self._dfs(board, row + dr, col + dc)
