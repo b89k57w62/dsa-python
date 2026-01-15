@@ -1351,6 +1351,8 @@ class Solution:
 
 # leetcode medium 207. Course Schedule
 class Solution:
+    # time complexity: O(V + E) where V is the number of vertices and E is the number of edges
+    # space complexity: O(V + E) for the adjacency list and visited state
     def canFinish(self, numCourses: int, prerequisites: List[List[int]]) -> bool:
         adjacency_list = [[] for _ in range(numCourses)]
         visited_state = [0] * numCourses
