@@ -2315,6 +2315,25 @@ class Solution:
 
 # leetcode medium 287. Find the Duplicate Number
 class Solution:
+    """
+    Uses Floyd's cycle detection algorithm.
+
+    Mathematical proof:
+    Let a = distance from start to cycle entry
+        b = distance from cycle entry to meeting point
+        c = distance from meeting point to cycle entry
+        L = cycle length = b + c
+        k = number of cycles
+
+    Phase 1: slow = a + b, fast = 2(a + b) = a + b + kL
+        Since L = b + c: 2a + 2b = a + b + k(b + c)
+        For k = 1: 2a + 2b = a + b + b + c, therefore a = c
+
+    Phase 2: Reset slow to start, both move one step.
+        When slow reaches entry (distance a), fast moves a steps from meeting point.
+        Since a = c, fast reaches entry simultaneously.
+    """
+
     # time complexity: O(n)
     # space complexity: O(1)
     def findDuplicate(self, nums: List[int]) -> int:
