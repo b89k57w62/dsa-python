@@ -2914,6 +2914,7 @@ class Solution:
     def _backtrack(self, candidates, target, res, start_idx, curr_path):
         if target == 0:
             res.append(curr_path[:])
+            return
         for i in range(start_idx, len(candidates)):
             num = candidates[i]
             # Pruning: stop early since candidates are sorted
