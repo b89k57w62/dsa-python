@@ -1538,28 +1538,19 @@ class Solution:
 
 # leetcode medium 34. Find First and Last Position of Element in Sorted Array
 class Solution:
+    # time complexity: O(log n)
+    # space complexity: O(1)
+    # patameter of helper method: is_left_edge: bool more efficient than using which_edge: str
     def searchRange(self, nums: List[int], target: int) -> List[int]:
-        res = [-1, -1]
-        left, right = 0, len(nums) - 1
-        left_edge = -1
-
-        while left <= right:
-            mid = (left + right) // 2
-            if nums[mid] < target:
-                left = mid + 1
-            elif nums[mid] > target:
-                right = mid - 1
-            else:
-                left_edge = mid
-                right = mid - 1
-
+        left_edge = self._find_edge(nums, target, True)
         if left_edge == -1:
-            return res
-        res[0] = left_edge
+            return [-1, -1]
+        right_edge = self._find_edge(nums, target, False)
+        return [left_edge, right_edge]
 
+    def _find_edge(self, nums, target, is_left_edge: bool):
         left, right = 0, len(nums) - 1
-        right_edge = -1
-
+        res = -1
         while left <= right:
             mid = (left + right) // 2
             if nums[mid] < target:
@@ -1567,13 +1558,11 @@ class Solution:
             elif nums[mid] > target:
                 right = mid - 1
             else:
-                right_edge = mid
-                left = mid + 1
-
-        if right_edge == -1:
-            return res
-
-        res[1] = right_edge
+                res = mid
+                if is_left_edge:
+                    left = mid + 1
+                else:
+                    right = mid - 1
         return res
 
 
