@@ -1945,22 +1945,16 @@ class Solution:
     # time complexity: O(n)
     # space complexity: O(1)
     def isPalindrome(self, s: str) -> bool:
-        left_pointer, right_pointer = 0, len(s) - 1
-        while left_pointer <= right_pointer:
-            if not s[left_pointer].isalnum():
-                left_pointer += 1
-                continue
-
-            if not s[right_pointer].isalnum():
-                right_pointer -= 1
-                continue
-
-            if s[left_pointer].lower() != s[right_pointer].lower():
+        left, right = 0, len(s) - 1
+        while left < right:
+            while left < right and not s[left].isalnum():
+                left += 1
+            while left < right and not s[right].isalnum():
+                right -= 1
+            if s[left].lower() != s[right].lower():
                 return False
-
-            left_pointer += 1
-            right_pointer -= 1
-
+            left += 1
+            right -= 1
         return True
 
 
