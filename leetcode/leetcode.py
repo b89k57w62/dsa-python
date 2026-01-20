@@ -1379,31 +1379,75 @@ class Solution:
 
 # leetcode medium 210. Course Schedule II
 class Solution:
-    def findOrder(self, numCourses: int, prerequisites: List[List[int]]) -> List[int]:
-        adjacency_list = [[] for _ in range(numCourses)]
-        visted_state = [0] * numCourses
-        order = []
+    # time complexity: O(V + E) where V is the number of vertices and E is the number of edges
+    # space complexity: O(V + E) for the adjacency list and visited state
+    def findOrder(
+        self,
+        numCourses: int,
+        prerequisites: List[List[int]],
+        solution_type: str = "dfs",
+    ) -> List[int]:
+        if solution_type == "dfs":
+            return self._findOrder_dfs(numCourses, prerequisites)
+        elif solution_type == "bfs":
+            return self._findOrder_bfs(numCourses, prerequisites)
+        else:
+            raise ValueError(
+                f"Unknown solution_type: {solution_type}. Use 'dfs' or 'bfs'"
+            )
+
+    def _findOrder_dfs(
+        self, numCourses: int, prerequisites: List[List[int]]
+    ) -> List[int]:
+        """DFS implementation"""
+        self._order = []
+        adj_list = [[] for _ in range(numCourses)]
+        visited = [0] * numCourses
         for course, prerequisite in prerequisites:
-            adjacency_list[prerequisite].append(course)
-
+            adj_list[prerequisite].append(course)
         for course in range(numCourses):
-            if visted_state[course] == 0:
-                if self.has_cycle(visted_state, adjacency_list, course, order):
+            if visited[course] == 0:
+                if self._has_cycle(adj_list, visited, course):
                     return []
-        return order[::-1]
+        return self._order[::-1]
 
-    def has_cycle(self, visted_state, adjacency_list, current_course, order):
-        if visted_state[current_course] == 1:
+    def _has_cycle(self, adj_list, visited, curr_course):
+        if visited[curr_course] == 1:
             return True
-        elif visted_state[current_course] == 2:
+        elif visited[curr_course] == 2:
             return False
-        visted_state[current_course] = 1
-        for next_course in adjacency_list[current_course]:
-            if self.has_cycle(visted_state, adjacency_list, next_course, order):
+        visited[curr_course] = 1
+        for next_course in adj_list[curr_course]:
+            if self._has_cycle(adj_list, visited, next_course):
                 return True
-        visted_state[current_course] = 2
-        order.append(current_course)
-        return False
+        visited[curr_course] = 2
+        self._order.append(curr_course)
+
+    def _findOrder_bfs(
+        self, numCourses: int, prerequisites: List[List[int]]
+    ) -> List[int]:
+        """BFS implementation"""
+        adj_list = [[] for _ in range(numCourses)]
+        indegree = [0] * numCourses
+        for course, prerequisite in prerequisites:
+            adj_list[prerequisite].append(course)
+            indegree[course] += 1
+        return self._bfs(numCourses, adj_list, indegree)
+
+    def _bfs(self, numCourses, adj_list, indegree):
+        que = deque()
+        order = []
+        for course in range(numCourses):
+            if indegree[course] == 0:
+                que.append(course)
+        while que:
+            curr_course = que.popleft()
+            order.append(curr_course)
+            for next_course in adj_list[curr_course]:
+                indegree[next_course] -= 1
+                if indegree[next_course] == 0:
+                    que.append(next_course)
+        return order if len(order) == numCourses else []
 
 
 # leetcode medium 200. Number of Islands
