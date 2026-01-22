@@ -3315,3 +3315,30 @@ class Solution:
         directions = [(-1, 0), (1, 0), (0, -1), (0, 1)]
         for dr, dc in directions:
             self._dfs(board, row + dr, col + dc)
+
+
+# leetcode medium 684. Redundant Connection
+class Solution:
+    # time complexity: O(n), where n is the number of edges
+    # space complexity: O(n), for the parent array
+    def findRedundantConnection(self, edges: List[List[int]]) -> List[int]:
+        n = len(edges)
+        self.parent = list(range(n + 1))
+        for u, v in edges:
+            if not self._union(u, v):
+                return [u, v]
+        return []
+
+    def _find(self, node):
+        if self.parent[node] != node:
+            # path compression
+            self.parent[node] = self._find(self.parent[node])
+        return self.parent[node]
+
+    def _union(self, x, y):
+        root_node_x = self._find(x)
+        root_node_y = self._find(y)
+        if root_node_x == root_node_y:
+            return False
+        self.parent[root_node_x] = root_node_y
+        return True
