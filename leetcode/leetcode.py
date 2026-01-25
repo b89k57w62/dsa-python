@@ -3342,3 +3342,61 @@ class Solution:
             return False
         self.parent[root_node_x] = root_node_y
         return True
+
+
+# leetcode medium 261. Graph Valid Tree
+class Solution:
+    # solution_type: "dfs" | "union_find"
+    # time complexity: O(V) (E == V - 1 already checked)
+    # space complexity: O(V) for adj_list/visited (dfs) or parent array (union_find)
+    def validTree(
+        self, n: int, edges: List[List[int]], solution_type: str = "dfs"
+    ) -> bool:
+        if len(edges) != n - 1:
+            return False
+        if solution_type == "dfs":
+            return self._validTree_dfs(n, edges)
+        elif solution_type == "union_find":
+            return self._validTree_union_find(n, edges)
+        else:
+            raise ValueError(
+                f"Unknown solution_type: {solution_type}. Use 'dfs' or 'union_find'"
+            )
+
+    def _validTree_dfs(self, n: int, edges: List[List[int]]) -> bool:
+        """DFS: build adj list, traverse from 0, check all n nodes reachable."""
+        adj_list = [[] for _ in range(n)]
+        for u, v in edges:
+            adj_list[u].append(v)
+            adj_list[v].append(u)
+        visited = set()
+        stack = [0]
+        visited.add(0)
+        while stack:
+            curr_node = stack.pop()
+            for neighbor in adj_list[curr_node]:
+                if neighbor not in visited:
+                    visited.add(neighbor)
+                    stack.append(neighbor)
+        return len(visited) == n
+
+    def _validTree_union_find(self, n: int, edges: List[List[int]]) -> bool:
+        """Union-Find: union each edge; if u,v already connected, cycle exists."""
+        self._parent = list(range(n))
+        for u, v in edges:
+            if not self._union(u, v):
+                return False
+        return True
+
+    def _find(self, node: int) -> int:
+        if self._parent[node] != node:
+            self._parent[node] = self._find(self._parent[node])
+        return self._parent[node]
+
+    def _union(self, u: int, v: int) -> bool:
+        root_u = self._find(u)
+        root_v = self._find(v)
+        if root_u == root_v:
+            return False
+        self._parent[root_u] = root_v
+        return True
