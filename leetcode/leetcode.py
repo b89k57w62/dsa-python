@@ -3400,3 +3400,34 @@ class Solution:
             return False
         self._parent[root_u] = root_v
         return True
+
+
+# leetcode medium 323. Number of Connected Components in an Undirected Graph
+class Solution:
+    # time complexity: O(V + E) where V is the number of vertices and E is the number of edges
+    # space complexity: O(V) for the parent array and O(V) for the size array
+    def countComponents(self, n: int, edges: List[List[int]]) -> int:
+        self._parent = list(range(n))
+        self._size = [1] * n
+        res = n
+        for u, v in edges:
+            res -= self._union(u, v)
+        return res
+
+    def _find(self, node):
+        if self._parent[node] != node:
+            self._parent[node] = self._find(self._parent[node])
+        return self._parent[node]
+
+    def _union(self, u, v):
+        root_u = self._find(u)
+        root_v = self._find(v)
+        if root_u == root_v:
+            return 0
+        if self._size[root_u] > self._size[root_v]:
+            self._parent[root_v] = root_u
+            self._size[root_u] += self._size[root_v]
+        else:
+            self._parent[root_u] = root_v
+            self._size[root_v] += self._size[root_u]
+        return 1
