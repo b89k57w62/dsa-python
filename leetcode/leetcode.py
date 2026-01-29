@@ -3431,3 +3431,25 @@ class Solution:
             self._parent[root_u] = root_v
             self._size[root_v] += self._size[root_u]
         return 1
+
+
+# leetcode medium 127. Word Ladder
+class Solution:
+    # time complexity: O(N * M^2), where N is the number of words in the wordList and M is the length of the word
+    # space complexity: O(N * L), where L is the length of the word
+    def ladderLength(self, beginWord: str, endWord: str, wordList: List[str]) -> int:
+        word_set = set(wordList)
+        if endWord not in word_set:
+            return 0
+        que = deque([(beginWord, 1)])
+        while que:
+            curr_word, level = que.popleft()
+            if curr_word == endWord:
+                return level
+            for i in range(len(curr_word)):
+                for char in "abcdefghijklmnopqrstuvwxyz":
+                    next_word = curr_word[:i] + char + curr_word[i + 1 :]
+                    if next_word in word_set:
+                        que.append((next_word, level + 1))
+                        word_set.remove(next_word)
+        return 0
