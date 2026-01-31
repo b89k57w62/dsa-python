@@ -3453,3 +3453,23 @@ class Solution:
                         que.append((next_word, level + 1))
                         word_set.remove(next_word)
         return 0
+
+
+# leetcode easy 70. Climbing Stairs
+class Solution:
+    # time complexity: O(n)
+    # space complexity: O(1)
+    def climbStairs(self, n: int) -> int:
+        if n <= 2:
+            return n
+        # first: ways to reach (i-2)th step, second: ways to reach (i-1)th step
+        first, second = 1, 2
+
+        # Iterate from the 3rd step up to the nth step
+        for i in range(3, n + 1):
+            # The number of ways to reach current step is the sum of the previous two steps
+            curr = first + second
+            # Update variables to shift the sliding window forward
+            first = second
+            second = curr
+        return second
