@@ -3473,3 +3473,21 @@ class Solution:
             first = second
             second = curr
         return second
+
+
+# leetcode easy 746. Min Cost Climbing Stairs
+class Solution:
+    # time complexity: O(n)
+    # space complexity: O(1)
+    def minCostClimbingStairs(self, cost: List[int]) -> int:
+        top = len(cost)
+        # prev_1: cost to reach the (i-1)th step
+        # prev_2: cost to reach the (i-2)th step
+        prev_1 = 0
+        prev_2 = 0
+        for i in range(2, top + 1):
+            curr = min(prev_1 + cost[i - 1], prev_2 + cost[i - 2])
+            prev_2 = prev_1
+            prev_1 = curr
+        # return prev_1 to avoid edge case when top == 1
+        return prev_1
